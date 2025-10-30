@@ -1,11 +1,13 @@
 // Teclado virtual que envía las letras al juego
-function Keyboard() {
+function Keyboard({onKeyPress}) {
   const keys = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
 
   return (
     <div className="keyboard">
       {keys.map((key) => (
-        <button key={key}>{key}</button>
+        <button key={key} onClick={() => onKeyPress(key)}>
+          {key}
+          </button>
       ))}
     </div>
   );
