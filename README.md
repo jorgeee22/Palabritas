@@ -1,4 +1,4 @@
-# 🟩 Palabritas - Juego de palabras (MERN)
+# Palabritas - Juego de palabras (MERN)
 
 **Palabritas** es un juego inspirado en _Wordle_, desarrollado con el stack **MERN** (MongoDB, Express, React y Node.js).  
 El objetivo es adivinar una palabra en español de 5 letras obtenida desde una API externa.
