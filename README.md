@@ -5,7 +5,7 @@ El objetivo es adivinar una palabra en español de 5 letras obtenida desde una A
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - **Frontend:** React (Vite), CSS3
 - **Backend:** Node.js + Express
@@ -22,17 +22,25 @@ El objetivo es adivinar una palabra en español de 5 letras obtenida desde una A
 En git bash o terminal:
 
 git clone <URL_DEL_REPOSITORIO>
+
 cd palabritas
 
-2️⃣ Configurar el backend
+### 2️⃣ Configurar el backend
+
 cd backend
+
 npm install
+
 npm run dev
+
 Backend → http://localhost:5000
 
-3️⃣ Configurar el frontend
+### 3️⃣ Configurar el frontend
+
 cd ../my-app
+
 npm install
+
 npm run dev
 
 Frontend → http://localhost:5173
