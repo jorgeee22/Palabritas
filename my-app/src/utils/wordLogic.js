@@ -1,19 +1,12 @@
 // Aquí irá la lógica de validación de palabras y comparación de letras
 
-const words = ["CASAS", "PERRO", "SOLAR", "NUBES", "VERDE"];
 
-// Obtener la palabra mediante un index aleatorio 
-export function getTargetWord(){
-  const randomIndex = Math.floor(Math.random()*words.length);
-  return words[randomIndex]
-}
 
 // Valida la palabra ingresada con la palabra correcta
 export function checkWord(guess, target) {
   const result = Array(guess.length).fill({ letter: "", status: "absent" });
   const targetLetters = target.split("");
   const guessLetters = guess.split("");
-
   // Paso 1: marcar letras correctas (verdes)
   for (let i = 0; i < guessLetters.length; i++) {
     if (guessLetters[i] === targetLetters[i]) {
