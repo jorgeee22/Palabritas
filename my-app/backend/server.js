@@ -18,4 +18,4 @@ app.use("/api/games", gameRoutes);
 app.use("/api/scores", scoreRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Servidor corriendo en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
