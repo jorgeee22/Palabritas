@@ -22,6 +22,13 @@ export async function loginUser(email, password) {
 
 //  Registro
 export async function registerUser(name, email, password) {
-  const res = await axios.post(`${API_USERS}/register`, { name, email, password });
+  const res = await axios.post(`${API_URL_USERS}/register`, { name, email, password });
+  return res.data;
+}
+
+export async function getProfile(token) {
+  const res = await axios.get(`${API_URL_USERS}/profile`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return res.data;
 }
