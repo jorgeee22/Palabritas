@@ -28,7 +28,7 @@ export const loginUser = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({ _id: user.id, name: user.name, token: generateToken(user.id) });
+    res.json({ _id: user.id, name: user.name, token: generateToken(user.id), message: "Usuario valido"});
   } else {
     res.status(401).json({ message: "Credenciales inválidas" });
   }
