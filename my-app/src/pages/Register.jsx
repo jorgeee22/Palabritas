@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { registerUser } from "../utils/api"; 
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
@@ -11,6 +11,14 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
 const navigate = useNavigate();
 
+ useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/profile");
+    }
+  }, [navigate]);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -18,7 +26,7 @@ const navigate = useNavigate();
 
     try {
       const data = await registerUser(name, email, password); // 👈 llamada a la API
-
+      
       // Guarda token y nombre del usuario
       localStorage.setItem("token", data.token);
       localStorage.setItem("userName", data.name);
