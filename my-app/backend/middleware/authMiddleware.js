@@ -6,13 +6,17 @@ export const protect = async (req, res, next) => {
   if (req.headers.authorization?.startsWith("Bearer")) {
     try {
       token = req.headers.authorization.split(" ")[1];
+
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select("-password");
       next();
     } catch (error) {
+      console.log("Token inválido o expirado");
       res.status(401).json({ message: "Token inválido o expirado" });
     }
   } else {
+    console.log("Inicia sesión para guardar registro de partida");
     res.status(401).json({ message: "No autorizado, sin token" });
   }
 };
+

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { checkWord} from "../utils/wordLogic";
 import LetterBox from "./LetterBox";
 import Keyboard from "./Keyboard";
-import { getWordOfTheDay } from "../utils/api";
+import { getWordOfTheDay, saveScore} from "../utils/api";
 
 // Representa el tablero donde aparecen las letras
 function GameGrid() {
@@ -10,6 +10,7 @@ function GameGrid() {
 const [target, setTarget] = useState("");     // palabra a adivinar
   const [guesses, setGuesses] = useState([]);   // intentos realizados
   const [currentGuess, setCurrentGuess] = useState(""); // intento actual
+const [gameOver, setGameOver] = useState(false); 
 
   // Se ejecuta una sola vez al montar el componente
   useEffect(() => {
@@ -25,17 +26,42 @@ const [target, setTarget] = useState("");     // palabra a adivinar
     fetchWord();
   }, []);
 
-function handleEnter(){
-  if (currentGuess.length < 5) return;
+ async function handleEnter(){
+  if (currentGuess.length < 5 ) return;
   const result = checkWord(currentGuess.toUpperCase(), target);
-  setGuesses([...guesses, result]);
+  const newGuesses = ([...guesses, result]);
+  setGuesses(newGuesses);
   setCurrentGuess("");
-}
+
+const isCorrect = result.every((box) => box.status === "correct");
+
+   
+    if (isCorrect) {
+      await handleGameEnd(true, newGuesses.length);
+    } else if (newGuesses.length >= 6) {
+      await handleGameEnd(false, newGuesses.length);
+    }
+  }
 
   function handleKeyPress(letter) {
     if (letter === "ENTER") return handleEnter();
     if (letter === "DEL") return setCurrentGuess(currentGuess.slice(0, -1));
     if (currentGuess.length < 5) setCurrentGuess(currentGuess + letter);
+  }
+
+ async function handleGameEnd(isWin, attemptsUsed) {
+    setGameOver(true);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      await saveScore(isWin, attemptsUsed, token);
+      console.log(
+        `Resultado enviado: ${isWin ? "ganó" : "perdió"} en ${attemptsUsed} intentos`
+      );
+    } catch (err) {
+      console.error("Error al guardar el resultado:", err);
+    }
   }
 
 return (
