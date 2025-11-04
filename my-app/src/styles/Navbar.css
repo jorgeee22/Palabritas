@@ -1,15 +1,22 @@
+/* Paleta */
+:root {
+  --brand-brown: #8C4A1F;
+  --brand-blue:  #02A2EC;
+  --brand-sky:   #C8E8F6;
+}
+
 /* Navbar fija en la parte superior */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(20, 20, 30, 0.95);
+  background: rgba(200, 232, 246, 0.92); /* sky translúcido */
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(140, 74, 31, 0.2); /* brown tenue */
   padding: 1rem 2rem;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 10px rgba(140, 74, 31, 0.12);
 }
 
 /* Contenedor interno centrado */
@@ -24,22 +31,22 @@
 /* Título/Logo */
 .navbar-title {
   text-decoration: none;
-  color: #a78bfa;
-  transition: color 0.3s ease;
+  color: var(--brand-brown);
+  transition: opacity 0.3s ease;
 }
 
 .navbar-title h1 {
   margin: 0;
   font-size: 1.8rem;
   font-weight: bold;
-  background: linear-gradient(135deg, #a78bfa, #ec4899);
+  background: linear-gradient(135deg, var(--brand-brown), var(--brand-blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .navbar-title:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* Contenedor de enlaces */
@@ -55,7 +62,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(140, 74, 31, 0.85); /* brown */
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.3s ease;
@@ -65,16 +72,16 @@
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: rgba(2, 162, 236, 0.15); /* azul suave */
+  color: var(--brand-blue);
   transform: translateY(-2px);
 }
 
 /* Enlace activo */
 .nav-link.active {
-  background: linear-gradient(135deg, #a78bfa, #ec4899);
+  background: linear-gradient(135deg, var(--brand-brown), var(--brand-blue));
   color: #fff;
-  box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);
+  box-shadow: 0 4px 15px rgba(2, 162, 236, 0.35);
 }
 
 /* Responsive - Tablets */

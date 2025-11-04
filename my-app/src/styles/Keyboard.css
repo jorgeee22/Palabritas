@@ -1,62 +1,73 @@
-
-.keyboard{
-margin-top: 1rem;
-display: flex;
- flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px; /* espacio entre filas */
-  width: 100%;
-}
-
-.keyboard-row {
-  display: flex;
-  justify-content: center;
-  gap: 6px; /* espacio entre teclas */
-}
-
-/* Estilos generales de tecla */
-.key {
-  background-color: #2b2b2b;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  width: 45px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-/* Efectos al interactuar */
-.key:hover {
-  background-color: #3b3b3b;
-  transform: translateY(-2px);
-}
-
-.key:active {
-  background-color: #1e1e1e;
-  transform: translateY(1px);
-}
-
-/* Teclas más anchas (ENTER, DEL) */
-.key-wide {
-  width: 80px;
-}
-
-/* Adaptación responsive */
-@media (max-width: 600px) {
-  .key {
-    width: 35px;
-    height: 50px;
-    font-size: 0.9rem;
+/* Paleta */
+:root{
+    --brand-brown:#8C4A1F;
+    --brand-blue:#02A2EC;
+    --brand-sky:#C8E8F6;
   }
-
-  .key-wide {
-    width: 70px;
+  
+  /* Contenedor: columnas apiladas y centradas */
+  .keyboard{
+    margin:24px auto 0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    align-items:center;
+    max-width:540px; /* << controla lo "compacto" */
   }
-}
+  
+  /* Cada fila del teclado */
+  .keyboard-row{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+  }
+  
+  /* Tecla base */
+  .key{
+    flex:0 0 auto;
+    width:44px;
+    height:56px;
+    border-radius:10px;
+    background:#fff;
+    color:var(--brand-brown);
+    border:1px solid rgba(140,74,31,.25);
+    box-shadow:0 2px 0 rgba(140,74,31,.15);
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:.5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    user-select:none;
+    cursor:pointer;
+    transition:transform .05s ease, background .2s ease, box-shadow .2s ease;
+  }
+  
+  .key:hover{ background:var(--brand-sky); }
+  .key:active{ transform:translateY(1px); box-shadow:0 1px 0 rgba(140,74,31,.2); }
+  
+  /* Teclas anchas: ENTER y DEL */
+  .key.wide{ width:80px; }
+  
+  /* Estados (por si marcas letras usadas) */
+  .key.correct{ background:var(--brand-brown); color:#fff; border-color:var(--brand-brown); }
+  .key.present{ background:var(--brand-blue); color:#fff; border-color:var(--brand-blue); }
+  .key.absent{ background:#e8eef2; color:#8a8f94; border-color:#d7dde2; }
+  
+  /* Responsive */
+  @media (max-width:768px){
+    .keyboard{ max-width:470px; gap:8px; }
+    .key{ width:40px; height:52px; font-size:15px; }
+    .key.wide{ width:72px; }
+  }
+  @media (max-width:480px){
+    .keyboard{ max-width:360px; gap:6px; }
+    .key{ width:34px; height:46px; font-size:14px; border-radius:8px; }
+    .key.wide{ width:64px; }
+  }
+  
+  /* Opcional: centra el tablero respecto al teclado */
+  .grid{
+    margin: 0 auto 10px;
+  }
+  
