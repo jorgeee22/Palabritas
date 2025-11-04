@@ -46,8 +46,11 @@ const isCorrect = result.every((box) => box.status === "correct");
   function handleKeyPress(letter) {
     if (letter === "ENTER") return handleEnter();
     if (letter === "DEL") return setCurrentGuess(currentGuess.slice(0, -1));
-    if (currentGuess.length < 5) setCurrentGuess(currentGuess + letter);
+
+     if (/^[A-ZÑÁÉÍÓÚ]$/.test(letter) && currentGuess.length < 5) {
+    setCurrentGuess(currentGuess + letter);
   }
+}
 
  async function handleGameEnd(isWin, attemptsUsed) {
     setGameOver(true);
@@ -79,7 +82,13 @@ return (
       <input
         type="text"
         value={currentGuess}
-        onChange={(e) => setCurrentGuess(e.target.value)}
+        onChange={(e) => {
+          const value = e.target.value;
+
+           if (/^[A-ZÑÁÉÍÓÚ]*$/.test(value)) {
+             setCurrentGuess(value);
+    }
+  }}
         onKeyDown={(e) => e.key === "Enter" && handleEnter()}
         maxLength={5}
       />
