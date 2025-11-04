@@ -1,0 +1,126 @@
+/* Navbar fija en la parte superior */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(20, 20, 30, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor interno centrado */
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Título/Logo */
+.navbar-title {
+  text-decoration: none;
+  color: #a78bfa;
+  transition: color 0.3s ease;
+}
+
+.navbar-title h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #a78bfa, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-title:hover {
+  opacity: 0.8;
+}
+
+/* Contenedor de enlaces */
+.navbar-links {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Estilo de cada enlace */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Enlace activo */
+.nav-link.active {
+  background: linear-gradient(135deg, #a78bfa, #ec4899);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);
+}
+
+/* Responsive - Tablets */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+  }
+
+  .navbar-title h1 {
+    font-size: 1.5rem;
+  }
+
+  .navbar-links {
+    gap: 0.3rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .nav-link span {
+    display: none; /* Ocultar texto en tablets */
+  }
+}
+
+/* Responsive - Móviles */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .navbar-title h1 {
+    font-size: 1.2rem;
+  }
+
+  .navbar-links {
+    gap: 0.2rem;
+  }
+
+  .nav-link {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* Ajuste para que el contenido no quede debajo de la navbar */
+body {
+  padding-top: 80px; /* Ajusta según la altura de tu navbar */
+}
