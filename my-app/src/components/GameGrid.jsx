@@ -83,7 +83,7 @@ return (
         type="text"
         value={currentGuess}
         onChange={(e) => {
-          const value = e.target.value;
+          const value = e.target.value.toUpperCase();
 
            if (/^[A-ZÑÁÉÍÓÚ]*$/.test(value)) {
              setCurrentGuess(value);
