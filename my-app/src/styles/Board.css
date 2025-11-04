@@ -1,0 +1,48 @@
+/* Paleta */
+:root{
+  --brand-brown:#8C4A1F;     /* correct */
+  --brand-blue:#02A2EC;      /* absent */
+  --vintage-yellow:#E7C45A;  /* present (amarillo vintage) */
+}
+
+/* Layout base del grid (opcional) */
+.grid{ display:flex; flex-direction:column; gap:10px; align-items:center; }
+.row{ display:flex; gap:10px; }
+
+/* Casilla de letra */
+.letter-box{
+  width:56px; height:56px;
+  border-radius:10px;
+  border:2px solid rgba(140,74,31,.25);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:24px; text-transform:uppercase;
+  background:#fff; color:var(--brand-brown);
+  user-select:none;
+}
+
+/* Estados */
+.letter-box.empty{
+  background:#fff;
+}
+
+.letter-box.absent{           /* no está en la palabra */
+  background:var(--brand-blue);
+  border-color:var(--brand-blue);
+  color:#fff;
+}
+
+.letter-box.present{          /* está, pero en otra posición */
+  background:var(--vintage-yellow);
+  border-color:var(--vintage-yellow);
+  color:#3b2a0f;              /* buen contraste */
+}
+
+.letter-box.correct{          /* correcta y en posición */
+  background:var(--brand-brown);
+  border-color:var(--brand-brown);
+  color:#fff;
+}
+
+/* Sutile animación al revelar */
+.letter-box.reveal{ animation: pop .12s ease-out; }
+@keyframes pop{ from{ transform:scale(.92);} to{ transform:scale(1);} }

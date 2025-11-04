@@ -4,8 +4,6 @@ import LetterBox from "./LetterBox";
 import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore } from "../utils/api";
-import '../Styles/Gamegrid.css';
-import '../Styles/Keyboard.css';
 
 // Representa el tablero donde aparecen las letras
 function GameGrid() {
