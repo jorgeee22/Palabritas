@@ -13,8 +13,38 @@ function GameGrid() {
   const [currentGuess, setCurrentGuess] = useState(""); // intento actual
   const [gameOver, setGameOver] = useState(false);
 
+  useEffect(() => {
+  if (target) {
+    const gameState = {
+      target,
+      guesses,
+      currentGuess,
+      gameOver,
+      dateKey: new Date().toISOString().split("T")[0], // día actual
+    };
+    localStorage.setItem("gameState", JSON.stringify(gameState));
+  }
+}, [target, guesses, currentGuess, gameOver]);
+
   // Se ejecuta una sola vez al montar el componente
   useEffect(() => {
+   const saved = localStorage.getItem("gameState")
+
+   if (saved){
+    const parsed = JSON.parse(saved);
+    const today = new Date().toISOString().split("T")[0];
+
+    if (parsed.dateKey == today){
+      setTarget(parsed.target);
+      setGuesses(parsed.guesses);
+      setCurrentGuess(parsed.currentGuess);
+      setGameOver(parsed.gameOver);
+      console.log("Juego restaurado", "target:", parsed.target);
+      return;
+    }
+    localStorage.removeItem("gameState");
+   }
+    
     async function fetchWord() {
       try {
         const word = await getWordOfTheDay();     // llama a tu backend
