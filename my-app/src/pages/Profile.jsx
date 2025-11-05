@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProfile } from "../utils/api"; 
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import Navbar from "../components/Navbar";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -58,6 +59,9 @@ export default function Profile() {
   }
 
   return (
+<>
+     <Navbar />
+
     <div className="login-container">
       <div className="login-box">
         <h2>Perfil de usuario</h2>
@@ -73,5 +77,6 @@ export default function Profile() {
         </button>
       </div>
     </div>
+    </>
   );
 }

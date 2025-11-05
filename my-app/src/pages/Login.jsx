@@ -2,6 +2,7 @@ import { loginUser } from "../utils/api";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import Navbar from "../components/Navbar";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -45,6 +46,8 @@ export default function Login() {
 
   
   return (
+    <>
+     <Navbar />
     <div className="login-container">
       <div className="login-box">
         <img
@@ -85,10 +88,9 @@ export default function Login() {
         <p className="register-link">
           ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
         </p>
-        <a style={{ position: "absolute", top: "10px" }} href="/">
-  Ir al juego </a>
+      
       </div>
     </div>
-   
+   </>
   )
 }

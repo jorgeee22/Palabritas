@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { registerUser } from "../utils/api"; 
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import Navbar from "../components/Navbar";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -41,6 +42,8 @@ const navigate = useNavigate();
   };
 
   return (
+    <>
+     <Navbar/>
     <div className="login-container">
       <div className="login-box">
         <img
@@ -88,11 +91,10 @@ const navigate = useNavigate();
         <p className="register-link">
           ¿Ya tienes una cuenta? <a href="/login">Inicia sesión aquí</a>
         </p>
-        <a style={{ position: "absolute", top: "10px" }} href="/">
-  Ir al juego </a>
+      
       </div>
     </div>
-
+</>
     
   );
 }

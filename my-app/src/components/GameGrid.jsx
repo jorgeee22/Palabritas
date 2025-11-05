@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { checkWord } from "../utils/wordLogic";
 import LetterBox from "./LetterBox";
+import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore } from "../utils/api";
+import '../Styles/Gamegrid.css';
 
 // Representa el tablero donde aparecen las letras
 function GameGrid() {
@@ -135,14 +137,12 @@ function GameGrid() {
       {/* Teclado virtual sigue funcionando */}
       <Keyboard onKeyPress={handleKeyPress} />
 
-      {/* Mensaje de fin de juego (opcional) */}
-      {gameOver && (
-        <div className="game-over">
-          {guesses[guesses.length - 1]?.every(box => box.status === "correct")
-            ? "¡Ganaste! 🎉"
-            : `Perdiste. La palabra era: ${target}`}
-        </div>
-      )}
+       {/* Mensajes de acierto/error */}
+      <MessageBanner
+      gameOver={gameOver}      
+      guesses={guesses}        
+      target={target}         
+/>
     </div>
   );
 }
