@@ -5,6 +5,7 @@ import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore } from "../utils/api";
 import '../Styles/Gamegrid.css';
+import '../Styles/Keyboard.css';
 
 // Representa el tablero donde aparecen las letras
 function GameGrid() {
@@ -13,49 +14,65 @@ function GameGrid() {
   const [currentGuess, setCurrentGuess] = useState(""); // intento actual
   const [gameOver, setGameOver] = useState(false);
 
+  function getLocalDateKey() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+    useEffect(() => {
+    try {
+      const saved = localStorage.getItem("gameState");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const today = getLocalDateKey();
+
+        // Si la palabra guardada es del día actual, restaurar el progreso
+        if (parsed.dateKey === today) {
+          setTarget(parsed.target);
+          setGuesses(parsed.guesses);
+          setGameOver(parsed.gameOver);
+          console.log("Juego restaurado desde localStorage:", parsed.target);
+          return; //  evita obtener una nueva palabra del backend
+        }
+
+        // Si la palabra guardada es vieja, borrar progreso anterior
+        localStorage.removeItem("gameState");
+      }
+    } catch (error) {
+      console.error("Error al restaurar juego:", error);
+      localStorage.removeItem("gameState");
+    }
+
+    // Si no hay partida guardada, pedir la palabra del día
+    async function fetchWord() {
+      try {
+        const word = await getWordOfTheDay();
+        setTarget(word);
+        console.log("Palabra objetivo nueva:", word);
+      } catch (error) {
+        console.error("Error al obtener palabra:", error);
+      }
+    }
+
+    fetchWord();
+  }, []);
+
   useEffect(() => {
   if (target) {
     const gameState = {
       target,
       guesses,
-      currentGuess,
       gameOver,
-      dateKey: new Date().toISOString().split("T")[0], // día actual
+      dateKey: getLocalDateKey(),
     };
     localStorage.setItem("gameState", JSON.stringify(gameState));
   }
-}, [target, guesses, currentGuess, gameOver]);
+}, [target, guesses, gameOver]);
 
-  // Se ejecuta una sola vez al montar el componente
-  useEffect(() => {
-   const saved = localStorage.getItem("gameState")
 
-   if (saved){
-    const parsed = JSON.parse(saved);
-    const today = new Date().toISOString().split("T")[0];
-
-    if (parsed.dateKey == today){
-      setTarget(parsed.target);
-      setGuesses(parsed.guesses);
-      setCurrentGuess(parsed.currentGuess);
-      setGameOver(parsed.gameOver);
-      console.log("Juego restaurado", "target:", parsed.target);
-      return;
-    }
-    localStorage.removeItem("gameState");
-   }
-    
-    async function fetchWord() {
-      try {
-        const word = await getWordOfTheDay();     // llama a tu backend
-        setTarget(word);                  // guarda la palabra en el estado
-        console.log("Palabra objetivo:", word);
-      } catch (error) {
-        console.error("Error al obtener palabra:", error);
-      }
-    }
-    fetchWord();
-  }, []);
 
   // ✅ LISTENER DEL TECLADO FÍSICO
   useEffect(() => {
