@@ -36,8 +36,8 @@ function Navbar() {
           </Link>
 
           <Link
-            to="/GameClassic"
-            className={`nav-link ${isActive('/GameClassic') ? 'active' : ''}`}
+            to="/"
+            className={`nav-link ${isActive('/') ? 'active' : ''}`}
           >
             <Clock size={20} />
             <span>Modo Clásico</span>

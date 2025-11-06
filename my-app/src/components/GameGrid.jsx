@@ -4,6 +4,7 @@ import LetterBox from "./LetterBox";
 import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore } from "../utils/api";
+import '../Styles/Gamegrid.css'
 
 // Representa el tablero donde aparecen las letras
 function GameGrid() {
@@ -72,7 +73,7 @@ function GameGrid() {
 
 
 
-  // ✅ LISTENER DEL TECLADO FÍSICO
+  // LISTENER DEL TECLADO FÍSICO
   useEffect(() => {
     function handlePhysicalKeyboard(e) {
       if (gameOver) return; // No hacer nada si el juego terminó
