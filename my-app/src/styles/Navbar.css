@@ -37,8 +37,8 @@
 
 .navbar-title h1 {
   margin: 0;
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-size: 1.9rem;
+  font-weight: 900;
   background: linear-gradient(135deg, var(--brand-brown), var(--brand-blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -84,6 +84,27 @@
   box-shadow: 0 4px 15px rgba(2, 162, 236, 0.35);
 }
 
+@media (max-width: 1100px) {
+  .navbar {
+    padding: 1rem 1.2rem;
+  }
+
+  .navbar-title h1 {
+    font-size: 1.7rem;
+  }
+
+  .navbar-links {
+    gap: 0.4rem;
+  }
+
+  .nav-link {
+    padding: 0.6rem 1.0rem;
+    font-size: 0.85rem;
+  }
+
+
+}
+
 /* Responsive - Tablets */
 @media (max-width: 768px) {
   .navbar {
@@ -107,6 +128,9 @@
     display: none; /* Ocultar texto en tablets */
   }
 }
+
+
+
 
 /* Responsive - Móviles */
 @media (max-width: 480px) {

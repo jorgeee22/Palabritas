@@ -28,8 +28,8 @@
     width:44px;
     height:56px;
     border-radius:10px;
-    background:#fff;
-    color:var(--brand-brown);
+    background-color:var(--brand-brown);
+    color:#fff;
     border:1px solid rgba(140,74,31,.25);
     box-shadow:0 2px 0 rgba(140,74,31,.15);
     font-weight:700;
@@ -43,7 +43,7 @@
     transition:transform .05s ease, background .2s ease, box-shadow .2s ease;
   }
   
-  .key:hover{ background:var(--brand-sky); }
+  .key:hover{ background:#aa5b26; transform: translateY(-2px);}
   .key:active{ transform:translateY(1px); box-shadow:0 1px 0 rgba(140,74,31,.2); }
   
   /* Teclas anchas: ENTER y DEL */

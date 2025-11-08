@@ -1,48 +1,60 @@
 /* Paleta */
 :root{
-  --brand-brown:#8C4A1F;     /* correct */
-  --brand-blue:#02A2EC;      /* absent */
-  --vintage-yellow:#E7C45A;  /* present (amarillo vintage) */
+  --brand-correct:#6aaa64;     /* correct */
+  --brand-absent:#787c7e;      /* absent */
+  --vintage-present:#E7C45A;  /* present (amarillo vintage) */
 }
 
 /* Layout base del grid (opcional) */
-.grid{ display:flex; flex-direction:column; gap:10px; align-items:center; }
+.grid{ display:flex; flex-direction:column; gap:8px; align-items:center;  margin-top: 20px;}
 .row{ display:flex; gap:10px; }
 
 /* Casilla de letra */
 .letter-box{
-  width:56px; height:56px;
-  border-radius:10px;
+  width:50px; height:50px;
+  border-radius:5px;
   border:2px solid rgba(140,74,31,.25);
   display:flex; align-items:center; justify-content:center;
-  font-weight:800; font-size:24px; text-transform:uppercase;
-  background:#fff; color:var(--brand-brown);
-  user-select:none;
+  font-weight:bold; font-size:1.4rem; text-transform:uppercase; transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: background-color 0.2s ease;
+  
 }
 
-/* Estados */
+/* Estados *//*
 .letter-box.empty{
   background:#fff;
+}*/
+
+.letter-box.correct {
+  background-color: var(--brand-correct);
+  border-color: var(--brand-correct);
+  color: #fff;
+}
+.letter-box.present {
+  background-color: var(--vintage-present);
+  border-color: var(--vintage-present);
+  color: #fff;
+}
+.letter-box.absent {
+  background-color: var(--brand-absent);
+  border-color: var(--brand-absent);
+  color: #fff;
 }
 
-.letter-box.absent{           /* no está en la palabra */
-  background:var(--brand-blue);
-  border-color:var(--brand-blue);
-  color:#fff;
-}
-
-.letter-box.present{          /* está, pero en otra posición */
-  background:var(--vintage-yellow);
-  border-color:var(--vintage-yellow);
-  color:#3b2a0f;              /* buen contraste */
-}
-
-.letter-box.correct{          /* correcta y en posición */
-  background:var(--brand-brown);
-  border-color:var(--brand-brown);
-  color:#fff;
-}
 
 /* Sutile animación al revelar */
-.letter-box.reveal{ animation: pop .12s ease-out; }
-@keyframes pop{ from{ transform:scale(.92);} to{ transform:scale(1);} }
+.letter-box.reveal{ animation: flip 0.4s ease-out forwards; }
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(180deg);
+    background-color: var(--target-color, #111);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
+

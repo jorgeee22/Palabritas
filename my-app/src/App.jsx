@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import GameClassic from "./pages/GameClassic"; 
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import GameThematic from "./pages/GameThematic";
+
 
     
 
@@ -21,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/gameThematic" element={<GameThematic />} />
       </Routes>
     </Router>
   );

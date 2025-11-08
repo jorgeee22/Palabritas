@@ -15,8 +15,7 @@ export default function GameClassic() {
         <GameGrid />
       </main>
 
-     <a href="/login">Inicia sesión aquí</a>
-     <a href="/register"> Registrate aquí</a>
+  
     </>
   );
 }

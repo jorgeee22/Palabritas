@@ -46,11 +46,7 @@ const navigate = useNavigate();
      <Navbar/>
     <div className="login-container">
       <div className="login-box">
-        <img
-          alt="Palabritas"
-          src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-          className="login-logo"
-        />
+       
         <h2>Crear cuenta</h2>
 
         <form onSubmit={handleSubmit}>

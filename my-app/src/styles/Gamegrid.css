@@ -1,20 +1,22 @@
 /* Contenedor principal del grid */
+/*
 .grid {
   display: flex;
-  flex-direction: column; /* Cada palabra en una fila */
-  gap: 8px; /* Espaciado entre filas */
+  flex-direction: column; /* Cada palabra en una fila 
+  gap: 8px; /* Espaciado entre filas 
   align-items: center;
   margin-top: 20px;
 }
 
-/* Cada fila de letras */
+/* Cada fila de letras 
 .row {
   display: flex;
-  flex-direction: row; /* Letras una al lado de otra */
-  gap: 6px; /* Espaciado entre letras */
+  flex-direction: row; /* Letras una al lado de otra 
+  gap: 6px; /* Espaciado entre letras 
 }
 
 /* Cada casilla de letra */
+/*
 .letter-box {
   width: 50px;
   height: 50px;
@@ -28,21 +30,23 @@
   border-radius: 5px;
 }
 
+/*
 
 .letter-box.correct {
-  background-color: #6aaa64; /* Verde */
+  background-color: #6aaa64; 
   color: white;
   border-color: #6aaa64;
 }
 
 .letter-box.present {
-  background-color: #c9b458; /* Amarillo */
+  background-color: #c9b458;
   color: white;
   border-color: #c9b458;
 }
 
 .letter-box.absent {
-  background-color: #787c7e; /* Gris */
+  background-color: #787c7e; 
   color: white;
   border-color: #787c7e;
 }
+*/

@@ -32,7 +32,7 @@ export function checkWord(guess, target) {
 
 
 export function isValid(word) {
-  return words.includes(word.toUpperCase());
+  return word.includes(word.toUpperCase());
 } 
   
 

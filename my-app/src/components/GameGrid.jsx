@@ -4,7 +4,8 @@ import LetterBox from "./LetterBox";
 import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore } from "../utils/api";
-import '../Styles/Gamegrid.css'
+import '../Styles/Board.css'
+import {getLocalDateKey} from "../utils/localDate";
 
 // Representa el tablero donde aparecen las letras
 function GameGrid() {
@@ -13,13 +14,6 @@ function GameGrid() {
   const [currentGuess, setCurrentGuess] = useState(""); // intento actual
   const [gameOver, setGameOver] = useState(false);
 
-  function getLocalDateKey() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
 
     useEffect(() => {
     try {
@@ -152,7 +146,7 @@ function GameGrid() {
         {guesses.map((guess, i) => (
           <div key={i} className="row">
             {guess.map((box, j) => (
-              <LetterBox key={j} letter={box.letter} status={box.status} />
+              <LetterBox key={j} letter={box.letter} status={box.status} delay={j *150}/>
             ))}
           </div>
         ))}

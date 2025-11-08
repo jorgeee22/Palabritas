@@ -1,0 +1,73 @@
+.settings-container {
+  position: relative;
+  display: inline-block;
+}
+
+.settings-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  font-weight: 600;
+  padding: 6px 10px;
+}
+
+.settings-button:hover {
+  color: #6aaa64;
+}
+
+.settings-popover {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 220px;
+  background: var(--popover-bg, #fff);
+  color: var(--popover-text, #111);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 12px;
+  z-index: 100;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.settings-popover h4 {
+  margin-top: 0;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 6px;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.theme-select, .volume-slider {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.volume-slider {
+  accent-color: #6aaa64;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Temas */
+[data-theme="dark"] {
+  --popover-bg: #222;
+  --popover-text: #eee;
+  background-color: #111;
+  color: #eee;
+}
