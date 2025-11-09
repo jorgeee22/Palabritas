@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, User, Zap, Clock, Settings } from 'lucide-react';
+import { Home, User, Zap, Clock } from 'lucide-react';
 import '../Styles/Navbar.css';
 import SettingsPopover from './SettingsUI';
 

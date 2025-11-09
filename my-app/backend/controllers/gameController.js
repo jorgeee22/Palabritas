@@ -1,5 +1,10 @@
-import axios from "axios";
 import Word from "../models/wordModel.js";
+import OpenAI from "openai";
+import dotenv from "dotenv"; // forma moderna con ES Modules
+
+dotenv.config();
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 
 export const getWordOfTheDay = async (req, res) => {
   try {
@@ -10,10 +15,16 @@ export const getWordOfTheDay = async (req, res) => {
     if (!daily) {
 
     // Petición a la API externa de palabras
-    const { data } = await axios.get("https://random-word-api.herokuapp.com/word?lang=es&length=5");
+   const prompt = `Dame una palabra en español de exactamente 5 letras, sin acentos ni caracteres especiales. Solo responde con la palabra, sin explicaciones ni puntuación.`;
     
+     const completion = await openai.chat.completions.create({
+        model: "gpt-4o-mini", // o "gpt-4-turbo"
+        messages: [{ role: "user", content: prompt }],
+        temperature: 1.1,
+      });
+
     // La API devuelve un array, tomamos la primera palabra
-    let word = data[0].toUpperCase();
+    let word = completion.choices[0].message.content.trim().toUpperCase();
 
      word = word.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
