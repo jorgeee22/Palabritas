@@ -4,7 +4,10 @@ import {  Settings } from 'lucide-react';
 
 function SettingsPopover({ onThemeChange, onVolumeChange }) {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    // Leer tema guardado o usar "light" por defecto
+    return localStorage.getItem("theme") || "light";
+  });
   const [volume, setVolume] = useState(50);
   const popoverRef = useRef(null);
 
@@ -20,10 +23,12 @@ function SettingsPopover({ onThemeChange, onVolumeChange }) {
   }, []);
 
   // Cambiar tema (notifica al padre y actualiza body)
-  useEffect(() => {
+ useEffect(() => {
     document.body.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
     onThemeChange && onThemeChange(theme);
   }, [theme, onThemeChange]);
+
 
   // Cambiar volumen (notifica al padre)
   useEffect(() => {

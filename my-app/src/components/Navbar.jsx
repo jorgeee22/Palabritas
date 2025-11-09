@@ -66,7 +66,7 @@ function Navbar() {
           </Link>
 
   
-           <SettingsPopover
+           <SettingsPopover 
         onThemeChange={handleThemeChange}
         onVolumeChange={handleVolumeChange}
       />
