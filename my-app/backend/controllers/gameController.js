@@ -1,6 +1,6 @@
 import Word from "../models/wordModel.js";
 import OpenAI from "openai";
-import dotenv from "dotenv"; // forma moderna con ES Modules
+import dotenv from "dotenv"; 
 
 dotenv.config();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -14,7 +14,7 @@ export const getWordOfTheDay = async (req, res) => {
 
     if (!daily) {
 
-    // Petición a la API externa de palabras
+    // Petición a la API de OpenAI
    const prompt = `Dame una palabra en español de exactamente 5 letras, sin acentos ni caracteres especiales. Solo responde con la palabra, sin explicaciones ni puntuación.`;
     
      const completion = await openai.chat.completions.create({
