@@ -1,0 +1,52 @@
+.tematico-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.tematico-title {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.temas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.tema-btn {
+  background: #a6dcef;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.3s;
+}
+
+.tema-btn:hover {
+  transform: scale(1.05);
+  background: #bfe8f5;
+}
+
+.volver-btn {
+  margin-top: 40px;
+  background: #7e9742;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.volver-btn:hover {
+  background: #96b35d;
+}

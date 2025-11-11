@@ -8,14 +8,20 @@ import '../Styles/Board.css'
 import {getLocalDateKey} from "../utils/localDate";
 
 // Representa el tablero donde aparecen las letras
-function GameGrid() {
-  const [target, setTarget] = useState("");     // palabra a adivinar
+function GameGrid({target: externalTarget = "", onWin}) {
+  const [target, setTarget] = useState(externalTarget);     // palabra a adivinar
   const [guesses, setGuesses] = useState([]);   // intentos realizados
   const [currentGuess, setCurrentGuess] = useState(""); // intento actual
   const [gameOver, setGameOver] = useState(false);
 
 
     useEffect(() => {
+     
+      if (externalTarget) {
+      setTarget(externalTarget);
+      return;
+    }
+
     try {
       const saved = localStorage.getItem("gameState");
       if (saved) {
@@ -51,7 +57,7 @@ function GameGrid() {
     }
 
     fetchWord();
-  }, []);
+  }, [externalTarget]);
 
   useEffect(() => {
   if (target) {
@@ -126,18 +132,23 @@ function GameGrid() {
 
   async function handleGameEnd(isWin, attemptsUsed) {
     setGameOver(true);
+
+      if (isWin && onWin) {
+    onWin(); // notifica al modo temático
+  }
+
+if (!externalTarget) {
     const token = localStorage.getItem("token");
     if (!token) return;
 
     try {
       await saveScore(isWin, attemptsUsed, token);
-      console.log(
-        `Resultado enviado: ${isWin ? "ganó" : "perdió"} en ${attemptsUsed} intentos`
-      );
+      console.log(`Resultado enviado: ${isWin ? "ganó" : "perdió"} en ${attemptsUsed} intentos`);
     } catch (err) {
       console.error("Error al guardar el resultado:", err);
     }
   }
+}
 
   return (
     <div>

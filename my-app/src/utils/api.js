@@ -5,6 +5,7 @@ import axios from "axios";
 const API_URL_GAMES = "http://localhost:5000/api/games";
 const API_URL_USERS = "http://localhost:5000/api/users";
 const API_URL_SCORES = "http://localhost:5000/api/scores";
+const API_URL_THEMATIC = "http://localhost:5000/api/tematico";
 
 // GAMES
 export async function getWordOfTheDay() {
@@ -51,4 +52,25 @@ export async function getUserScores(token) {
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
+}
+
+
+export async function getWordByTheme(tema) {
+  try {
+    const res = await axios.get(`${API_URL_THEMATIC}?tema=${tema}`);
+    return res.data.word;
+  } catch (error) {
+    console.error("Error al obtener palabra temática:", error);
+    throw error;
+  }
+}
+
+export async function updateThemeProgress(userId, tema) {
+  try {
+    const res = await axios.post(`${API_URL_THEMATIC}/progreso`, { userId, tema });
+    return res.data;
+  } catch (error) {
+    console.error("Error al actualizar progreso:", error);
+    throw error;
+  }
 }

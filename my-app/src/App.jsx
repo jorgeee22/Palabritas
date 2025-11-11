@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import GameThematic from "./pages/GameThematic";
 import MainMenu from "./pages/MainMenu";
+import TematicoHub from "./components/TematicoHub";
 
 
     
@@ -24,7 +25,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/gameThematic" element={<GameThematic />} />
+        <Route path="/GameThematic" element={<TematicoHub />} />
+        <Route path="/GameThematic/:tema" element={<GameThematic />} />
          <Route path="/MainMenu" element={<MainMenu/>} />
         
       </Routes>

@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import gameRoutes from "./routes/gameRoutes.js";
 import scoreRoutes from "./routes/scoreRoutes.js";
+import tematicoRoutes from "./routes/tematicoRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/games", gameRoutes);
 app.use("/api/scores", scoreRoutes);
+app.use("/api/tematico", tematicoRoutes);
 
 
 const PORT = process.env.PORT || 5000;

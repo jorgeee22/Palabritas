@@ -19,7 +19,7 @@ export default function MainMenu({username = "Usuario"}) {
           LA PALABRA DEL DÍA
         </button>
 
-        <button onClick={() => navigate("/tematico")} className="mode-btn">
+        <button onClick={() => navigate("/GameThematic")} className="mode-btn">
           TEMÁTICO
         </button>
 

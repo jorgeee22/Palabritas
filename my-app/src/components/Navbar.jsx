@@ -37,7 +37,7 @@ function Navbar() {
             className={`nav-link ${isActive('/GameThematic') ? 'active' : ''}`}
           >
             <Zap size={20} />
-            <span>Modo Rápido</span>
+            <span>Modo Temático</span>
           </Link>
        </div>
 
