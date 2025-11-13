@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getUserAchievements } from "../utils/api";
 import { ClassicAchievements } from "../components/ClassicAchievements";
 import { ThematicAchievements } from "../components/ThematicAchievements";
+import Navbar from "../components/Navbar";
 
 export default function Achievements() {
   const [mode, setMode] = useState("classic");
@@ -9,10 +10,12 @@ export default function Achievements() {
   const [thematicStats, setThematicStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     async function fetchAchievements() {
       try {
         const token = localStorage.getItem("token");
+
         const data = await getUserAchievements(token);
         setClassicStats(data.classic);
         setThematicStats(data.thematic);
@@ -29,6 +32,8 @@ export default function Achievements() {
   if (loading) return <p>Cargando logros...</p>;
 
   return (
+  <>
+    <Navbar/>
     <div className="achievements-container">
       <h1 className="title">Logros</h1>
 
@@ -61,5 +66,6 @@ export default function Achievements() {
         )}
       </div>
     </div>
+    </>
   );
 }

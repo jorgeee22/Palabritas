@@ -2,9 +2,20 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import "../styles/MainMenu.css";
 
+
 export default function MainMenu({username = "Usuario"}) {
 
     const navigate = useNavigate();
+
+   function AuthenticatedUser(){
+    const token = localStorage.getItem("token");
+    if (!token){
+      alert("Inicia sesión o Registrate para guardar progreso");
+      navigate("/");}
+      else{
+        navigate("/achievements")
+      }
+   }
 
     return (
         <>
@@ -30,7 +41,7 @@ export default function MainMenu({username = "Usuario"}) {
 
       <div className="main-menu__bottom">
         <div className="bottom-row">
-          <button onClick={() => navigate("/achievements")} className="secondary-btn">LOGROS</button>
+          <button onClick={() => AuthenticatedUser()} className="secondary-btn">LOGROS</button>
           <button className="secondary-btn">AJUSTES</button>
         </div>
 
