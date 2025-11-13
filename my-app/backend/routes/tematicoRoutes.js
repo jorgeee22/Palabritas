@@ -1,9 +1,10 @@
 // routes/tematicoRoutes.js
 import express from "express";
-import { getRandomWordByTheme, updateUserProgress } from "../controllers/thematicController.js";
+import { getWordByTheme, updateUserProgress } from "../controllers/thematicController.js";
 const router = express.Router();
+import { protect } from "../middleware/authMiddleware.js";
 
-router.get("/", getRandomWordByTheme);
-router.post("/progreso", updateUserProgress);
+router.get("/", getWordByTheme);
+router.post("/progreso",protect, updateUserProgress);
 
 export default router;

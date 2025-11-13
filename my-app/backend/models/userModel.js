@@ -4,16 +4,48 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-thematicProgress: {
-    deportes: { type: Number, default: 0 },
-    ciencia: { type: Number, default: 0 },
-    peliculas: { type: Number, default: 0 },
-    animales: { type: Number, default: 0 },
-    comida: { type: Number, default: 0 },
-    paises: { type: Number, default: 0 },
-    nombres: { type: Number, default: 0 },
-    historia: { type: Number, default: 0 },
 
+    classicStreak: {
+    current: { type: Number, default: 0 },
+    best: { type: Number, default: 0 },
+    total: { type: Number, default: 0 },
+  },
+
+
+  // Progreso del modo temático
+  thematicProgress: {
+    deportes: {
+      count: { type: Number, default: 0 },          
+      discovered: { type: [String], default: [] },  
+    },
+    ciencia: {
+      count: { type: Number, default: 0 },
+      discovered: { type: [String], default: [] },
+    },
+    peliculas: {
+      count: { type: Number, default: 0 },
+      discovered: { type: [String], default: [] },
+    },
+    animales: {
+      count: { type: Number, default: 0 },
+      discovered: { type: [String], default: [] },
+    },
+    comida: {
+      count: { type: Number, default: 0 },
+      discovered: { type: [String], default: [] },
+    },
+    paises: {
+      count: { type: Number, default: 0 },
+      discovered: { type: [String], default: [] },
+    },
+    nombres: {
+      count: { type: Number, default: 0 },
+      discovered: { type: [String], default: [] },
+    },
+    historia: {
+      count: { type: Number, default: 0 },
+      discovered: { type: [String], default: [] },
+    },
   },
 });
 

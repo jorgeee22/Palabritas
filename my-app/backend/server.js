@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/games", gameRoutes);
 app.use("/api/scores", scoreRoutes);
-app.use("/api/tematico", tematicoRoutes);
+app.use("/api/tematico", tematicoRoutes);   
 
 
 const PORT = process.env.PORT || 5000;

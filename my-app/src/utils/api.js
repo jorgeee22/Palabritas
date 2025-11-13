@@ -13,7 +13,6 @@ export async function getWordOfTheDay() {
   return res.data.word;
 }
 
-
 // USERS
 
 //  Login
@@ -34,7 +33,6 @@ export async function getProfile(token) {
   });
   return res.data;
 }
-
 
 // SCORES
 
@@ -65,12 +63,37 @@ export async function getWordByTheme(tema) {
   }
 }
 
-export async function updateThemeProgress(userId, tema) {
-  try {
-    const res = await axios.post(`${API_URL_THEMATIC}/progreso`, { userId, tema });
+export async function updateThemeProgress(tema, word, token) {
+try {
+    const res = await axios.post(
+      `${API_URL_THEMATIC}/progreso`,
+      { tema, word },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
     return res.data;
   } catch (error) {
     console.error("Error al actualizar progreso:", error);
     throw error;
   }
+}
+
+export async function updateClassicStreak(won, token) {
+  try {
+    const res = await axios.patch(
+      `${API_URL_USERS}/streak`,
+      { won },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return res.data;
+  } catch (error) {
+    console.error("Error al actualizar racha:", error);
+    throw error;
+  }
+}
+
+export async function getUserAchievements(token) {
+  const res = await axios.get(`${API_URL_USERS}/achievements`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
 }

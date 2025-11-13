@@ -38,3 +38,4 @@ export const getWordOfTheDay = async (req, res) => {
     res.status(500).json({ message: "No se pudo obtener la palabra" });
   }
 };
+

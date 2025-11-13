@@ -30,7 +30,7 @@ export default function MainMenu({username = "Usuario"}) {
 
       <div className="main-menu__bottom">
         <div className="bottom-row">
-          <button className="secondary-btn">LOGROS</button>
+          <button onClick={() => navigate("/achievements")} className="secondary-btn">LOGROS</button>
           <button className="secondary-btn">AJUSTES</button>
         </div>
 

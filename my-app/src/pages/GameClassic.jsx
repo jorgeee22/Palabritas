@@ -12,7 +12,7 @@ export default function GameClassic() {
 
       {/* Contenedor principal del juego */}
       <main className="game-container">
-        <GameGrid />
+        <GameGrid mode="classic"/>
       </main>
 
   

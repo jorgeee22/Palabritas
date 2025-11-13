@@ -13,20 +13,32 @@ export default function GameThematic({user}) {
   const [finished, setFinished] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
+
   async function fetchWord() {
-    const word = await getWordByTheme(tema);
-    setWord(word);
-  }
+  const word = await getWordByTheme(tema);
+  setWord(word);
+}
+
+
+  useEffect(() => {
   fetchWord();
 }, [tema]);
 
- console.log(word);
 
  async function handleWin() {
-  if (user?._id) {
-    await updateThemeProgress(user._id, tema);
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    try {
+      await updateThemeProgress(tema, word, token);
+      console.log(`✅ Progreso guardado en tema ${tema} con palabra ${word}`);
+    } catch (error) {
+      console.error("Error al actualizar progreso:", error);
+    }
+  } else {
+    console.log("Usuario no autenticado, no se guarda progreso.");
   }
+
   setProgress(p => p + 1);
   setFinished(true);
 }
@@ -41,11 +53,12 @@ export default function GameThematic({user}) {
   return (
     <>
     <Navbar/>
+
     <div className="tematico-game">
       <h2>Tema: {tema.toUpperCase()}</h2>
 
       {!finished ? (
-        <GameGrid target={word} onWin={handleWin} />
+        <GameGrid mode="thematic" target={word} onWin={handleWin} />
       ) : (
         <div className="tematico-finish">
           <h3>¡Correcto! 🎉</h3>

@@ -3,46 +3,44 @@ import { checkWord } from "../utils/wordLogic";
 import LetterBox from "./LetterBox";
 import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
-import { getWordOfTheDay, saveScore } from "../utils/api";
+import { getWordOfTheDay, saveScore, updateClassicStreak } from "../utils/api";
 import '../Styles/Board.css'
 import {getLocalDateKey} from "../utils/localDate";
 
 // Representa el tablero donde aparecen las letras
-function GameGrid({target: externalTarget = "", onWin}) {
+function GameGrid({mode = "classic", target: externalTarget = "", onWin}) {
   const [target, setTarget] = useState(externalTarget);     // palabra a adivinar
   const [guesses, setGuesses] = useState([]);   // intentos realizados
   const [currentGuess, setCurrentGuess] = useState(""); // intento actual
   const [gameOver, setGameOver] = useState(false);
+  const storageKey = mode === "classic" ? "gameStateClassic" : `gameState_${mode}`;
 
-
-    useEffect(() => {
-     
-      if (externalTarget) {
+ useEffect(() => {
+  async function restoreGame() {
+    if (externalTarget) {
       setTarget(externalTarget);
       return;
     }
 
     try {
-      const saved = localStorage.getItem("gameState");
+      const saved = localStorage.getItem(storageKey);
       if (saved) {
         const parsed = JSON.parse(saved);
-        const today = getLocalDateKey();
+        const today = await getLocalDateKey();
 
-        // Si la palabra guardada es del día actual, restaurar el progreso
         if (parsed.dateKey === today) {
           setTarget(parsed.target);
           setGuesses(parsed.guesses);
           setGameOver(parsed.gameOver);
-          console.log("Juego restaurado desde localStorage:", parsed.target);
-          return; //  evita obtener una nueva palabra del backend
+          console.log("Juego restaurado:", parsed.target);
+          return;
         }
 
-        // Si la palabra guardada es vieja, borrar progreso anterior
-        localStorage.removeItem("gameState");
+        localStorage.removeItem(storageKey);
       }
     } catch (error) {
       console.error("Error al restaurar juego:", error);
-      localStorage.removeItem("gameState");
+      localStorage.removeItem(storageKey);
     }
 
     // Si no hay partida guardada, pedir la palabra del día
@@ -57,20 +55,33 @@ function GameGrid({target: externalTarget = "", onWin}) {
     }
 
     fetchWord();
-  }, [externalTarget]);
-
-  useEffect(() => {
-  if (target) {
-    const gameState = {
-      target,
-      guesses,
-      gameOver,
-      dateKey: getLocalDateKey(),
-    };
-    localStorage.setItem("gameState", JSON.stringify(gameState));
   }
-}, [target, guesses, gameOver]);
 
+  // 👇 Aquí es donde realmente se ejecuta la función
+  restoreGame();
+}, [externalTarget, mode]);
+
+
+useEffect(() => {
+  if (mode !== "classic") {
+    setGuesses([]);
+    setCurrentGuess("");
+    setGameOver(false);
+  }
+}, [externalTarget, mode]);
+
+
+useEffect(() => {
+  if (!target || mode !== "classic") return; // guarda solo el modo clásico
+
+  const gameState = {
+    target,
+    guesses,
+    gameOver,
+    dateKey: getLocalDateKey(),
+  };
+  localStorage.setItem(storageKey, JSON.stringify(gameState));
+}, [target, guesses, gameOver, mode]);
 
 
   // LISTENER DEL TECLADO FÍSICO
@@ -143,6 +154,7 @@ if (!externalTarget) {
 
     try {
       await saveScore(isWin, attemptsUsed, token);
+      await updateClassicStreak(isWin, token);
       console.log(`Resultado enviado: ${isWin ? "ganó" : "perdió"} en ${attemptsUsed} intentos`);
     } catch (err) {
       console.error("Error al guardar el resultado:", err);
