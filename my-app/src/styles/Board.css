@@ -6,7 +6,7 @@
 }
 
 /* Layout base del grid (opcional) */
-.grid{ display:flex; flex-direction:column; gap:8px; align-items:center;  margin-top: 20px;}
+.grid{ display:flex; flex-direction:column; gap:8px; align-items:center;}
 .row{ display:flex; gap:10px; }
 
 /* Casilla de letra */
@@ -25,6 +25,12 @@
 .letter-box.empty{
   background:#fff;
 }*/
+.letter-box.active {
+  border-color: var(--brand-correct);
+  box-shadow: 0 0 6px var(--brand-correct);
+  transform: scale(1.05);
+  transition: all 0.15s ease;
+}
 
 .letter-box.correct {
   background-color: var(--brand-correct);

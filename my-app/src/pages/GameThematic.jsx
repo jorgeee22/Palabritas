@@ -54,7 +54,7 @@ export default function GameThematic({user}) {
     <>
     <Navbar/>
 
-    <div className="tematico-game">
+   <main className="game-container">
       <h2>Tema: {tema.toUpperCase()}</h2>
 
       {!finished ? (
@@ -69,7 +69,7 @@ export default function GameThematic({user}) {
           </div>
         </div>
       )}
-    </div>
+    </main>
    </>
   );
 }

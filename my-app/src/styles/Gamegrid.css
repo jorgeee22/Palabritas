@@ -50,3 +50,11 @@
   border-color: #787c7e;
 }
 */
+
+.game-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 80vh; /* ocupa 80% del viewport */
+}

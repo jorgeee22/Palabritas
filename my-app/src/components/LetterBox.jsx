@@ -1,21 +1,21 @@
 // Casilla individual de una letra en el grid
 import { useState, useEffect } from "react";
 
-
-function LetterBox({ letter, status, delay=0 }) {
-
-  const[animate, setAnimate] = useState(false);
+function LetterBox({ letter, status, delay = 0, isActive = false, onClick }) {
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-  if (["correct", "present", "absent"].includes(status)) {
-    const timer = setTimeout(() => setAnimate(true), delay);
-    return () => clearTimeout(timer); // limpia el timeout
-  }
-}, [status, delay]);
+    if (["correct", "present", "absent"].includes(status)) {
+      const timer = setTimeout(() => setAnimate(true), delay);
+      return () => clearTimeout(timer); // limpia el timeout
+    }
+  }, [status, delay]);
 
- return (
+  return (
     <div
-      className={`letter-box ${status} ${animate ? "reveal" : ""}`}
+      className={`letter-box ${status} ${animate ? "reveal" : ""} ${
+        isActive ? "active" : ""
+      }`}
       style={{
         "--target-color":
           status === "correct"
@@ -26,13 +26,11 @@ function LetterBox({ letter, status, delay=0 }) {
             ? "#787c7e"
             : "#fff",
       }}
+      onClick={onClick} // ✅ Permite clics en la celda
     >
       {letter}
     </div>
   );
 }
-
- 
-
 
 export default LetterBox;
