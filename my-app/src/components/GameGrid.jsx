@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { checkWord } from "../utils/wordLogic";
 import LetterBox from "./LetterBox";
-import MessageBanner from "../components/MessageBanner";
+import ToastContainer from "./ToastContainer";
+//import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore, updateClassicStreak } from "../utils/api";
 import "../Styles/Board.css";
@@ -15,6 +16,8 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const storageKey = mode === "classic" ? "gameStateClassic" : `gameState_${mode}`;
+  const [toasts, setToasts] = useState([]);
+
 
   // Foco automático en el grid para capturar teclado físico
   useEffect(() => {
@@ -156,29 +159,47 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
     }
   }
 
-  // ✅ Enter
-  async function handleEnter() {
-    const guess = currentGuess.join("").toUpperCase();
+  // Enter
+ async function handleEnter() {
+  const guess = currentGuess.join("").toUpperCase();
 
-    if (currentGuess.some(c => c === "")) {
-      console.log("Error: palabra incompleta");
-      return;
-    }
-
-    const result = checkWord(guess, target);
-    const newGuesses = [...guesses, result];
-    setGuesses(newGuesses);
-    setCurrentGuess(Array(5).fill(""));
-    setActiveIndex(0);
-
-    const isCorrect = result.every(box => box.status === "correct");
-
-    if (isCorrect) {
-      await handleGameEnd(true, newGuesses.length);
-    } else if (newGuesses.length >= 6) {
-      await handleGameEnd(false, newGuesses.length);
-    }
+  // Fila incompleta
+  if (currentGuess.some(c => c === "")) {
+    showToast("No hay suficientes letras");
+    return;
   }
+
+  //  Fila llena (no debería ocurrir normalmente, pero por seguridad)
+  if (guess.length > 5) {
+    showToast("No caben más letras");
+    return;
+  }
+
+  // (Opcional) Validar diccionario si aplica
+  // if (!esPalabraValida(guess)) {
+  //   showToast("Palabra no válida");
+  //   return;
+  // }
+
+  const result = checkWord(guess, target);
+  const newGuesses = [...guesses, result];
+  setGuesses(newGuesses);
+  setCurrentGuess(Array(5).fill(""));
+  setActiveIndex(0);
+
+  const isCorrect = result.every(box => box.status === "correct");
+
+  //  Victoria
+  if (isCorrect) {
+    showToast("¡Bien! ¡Acertaste!");
+    await handleGameEnd(true, newGuesses.length);
+  } 
+  // Sin intentos
+  else if (newGuesses.length >= 6) {
+    showToast(`Sin intentos. La palabra era: ${target}`);
+    await handleGameEnd(false, newGuesses.length);
+  }
+}
 
   async function handleGameEnd(isWin, attemptsUsed) {
     setGameOver(true);
@@ -198,6 +219,15 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
       }
     }
   }
+
+  function showToast(message, duration = 2000) {
+  const id = Date.now();
+  setToasts((prev) => [...prev, { id, message }]);
+  setTimeout(() => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, duration);
+}
+
 
   //  Renderizado
   return (
@@ -241,11 +271,14 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
         ))}
       </div>
 
+      <ToastContainer toasts={toasts} removeToast={(id) =>
+       setToasts((prev) => prev.filter((t) => t.id !== id))
+       } />
+
       {/* Teclado virtual */}
       <Keyboard onKeyPress={handleKeyPress} />
 
-      {/* Mensaje final */}
-      <MessageBanner gameOver={gameOver} guesses={guesses} target={target} />
+     
     </div>
   );
 }
