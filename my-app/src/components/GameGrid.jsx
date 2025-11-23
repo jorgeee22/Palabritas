@@ -1,21 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { checkWord } from "../utils/wordLogic";
 import LetterBox from "./LetterBox";
 import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore, updateClassicStreak } from "../utils/api";
-import '../Styles/Board.css';
-import '../Styles/Gamegrid.css';
+import "../Styles/Board.css";
+import "../Styles/Gamegrid.css";
 import { getLocalDateKey } from "../utils/localDate";
 
-// Representa el tablero donde aparecen las letras
 function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
-  const [target, setTarget] = useState(externalTarget); // palabra a adivinar
-  const [guesses, setGuesses] = useState([]); // intentos realizados
-  const [currentGuess, setCurrentGuess] = useState(""); // intento actual
-  const [activeIndex, setActiveIndex] = useState(0); // índice de la celda activa (0–4)
+  const [target, setTarget] = useState(externalTarget);
+  const [guesses, setGuesses] = useState([]);
+  const [currentGuess, setCurrentGuess] = useState(Array(5).fill("")); // ← array fijo
+  const [activeIndex, setActiveIndex] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const storageKey = mode === "classic" ? "gameStateClassic" : `gameState_${mode}`;
+
+  // Foco automático en el grid para capturar teclado físico
+  useEffect(() => {
+    const grid = document.querySelector(".grid");
+    grid?.focus();
+  }, []);
 
   // Restaurar partida o pedir palabra nueva
   useEffect(() => {
@@ -46,7 +51,6 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
         localStorage.removeItem(storageKey);
       }
 
-      // Si no hay partida guardada, pedir la palabra del día
       async function fetchWord() {
         try {
           const word = await getWordOfTheDay();
@@ -67,7 +71,7 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
   useEffect(() => {
     if (mode !== "classic") {
       setGuesses([]);
-      setCurrentGuess("");
+      setCurrentGuess(Array(5).fill(""));
       setGameOver(false);
       setActiveIndex(0);
     }
@@ -75,8 +79,7 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
 
   // Guardar progreso localmente
   useEffect(() => {
-    if (!target || mode !== "classic") return; // guarda solo el modo clásico
-
+    if (!target || mode !== "classic") return;
     const gameState = {
       target,
       guesses,
@@ -86,52 +89,89 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
     localStorage.setItem(storageKey, JSON.stringify(gameState));
   }, [target, guesses, gameOver, mode]);
 
-  // Listener de teclado físico
-  useEffect(() => {
-    function handlePhysicalKeyboard(e) {
-      if (gameOver) return;
+  //  Manejo de teclado físico directamente en el grid
+  function handlePhysicalKeyboard(e) {
+    if (gameOver) return;
 
-      const key = e.key.toUpperCase();
+    const key = e.key.toUpperCase();
 
-      // Enter
-      if (key === "ENTER") {
-        handleEnter();
-      }
-      // Backspace o Delete
-      else if (key === "BACKSPACE" || key === "DELETE") {
-        setCurrentGuess(prev => {
-          const chars = prev.split("");
+    if (key === "ENTER") {
+      handleEnter();
+    } else if (key === "BACKSPACE" || key === "DELETE") {
+      setCurrentGuess(prevGuess => {
+        const chars = [...prevGuess];
+
+        // Si hay letra, bórrala sin moverte
+        if (chars[activeIndex] !== "") {
           chars[activeIndex] = "";
-          return chars.join("");
-        });
-        setActiveIndex(prev => Math.max(prev - 1, 0));
-      }
-      // Letras válidas
-      else if (/^[A-ZÑÁÉÍÓÚ]$/.test(key)) {
-        setCurrentGuess(prev => {
-          const chars = prev.split("");
-          chars[activeIndex] = key;
-          return chars.join("");
-        });
-        setActiveIndex(prev => Math.min(prev + 1, 4));
-      }
+          return chars;
+        }
+
+        // Si está vacía, retrocede una y bórrala
+        const newIndex = Math.max(activeIndex - 1, 0);
+        chars[newIndex] = "";
+        setActiveIndex(newIndex);
+        return chars;
+      });
+    } else if (/^[A-ZÑÁÉÍÓÚ]$/.test(key)) {
+      setCurrentGuess(prevGuess => {
+        const chars = [...prevGuess];
+        chars[activeIndex] = key;
+        return chars;
+      });
+      setActiveIndex(prev => Math.min(prev + 1, 4));
+    }
+  }
+
+  //  Teclado virtual
+  function handleKeyPress(letter) {
+    if (gameOver) return;
+
+    if (letter === "ENTER") return handleEnter();
+
+    if (letter === "DEL") {
+      setCurrentGuess(prevGuess => {
+        const chars = [...prevGuess];
+
+        if (chars[activeIndex] !== "") {
+          chars[activeIndex] = "";
+          return chars;
+        }
+
+        const newIndex = Math.max(activeIndex - 1, 0);
+        chars[newIndex] = "";
+        setActiveIndex(newIndex);
+        return chars;
+      });
+      return;
     }
 
-    window.addEventListener("keydown", handlePhysicalKeyboard);
-    return () => window.removeEventListener("keydown", handlePhysicalKeyboard);
-  }, [activeIndex, currentGuess, gameOver, target]);
+    if (/^[A-ZÑÁÉÍÓÚ]$/.test(letter)) {
+      setCurrentGuess(prevGuess => {
+        const chars = [...prevGuess];
+        chars[activeIndex] = letter;
+        return chars;
+      });
+      setActiveIndex(prev => Math.min(prev + 1, 4));
+    }
+  }
 
-  // Manejar tecla Enter
+  // ✅ Enter
   async function handleEnter() {
-    if (currentGuess.length < 5 || currentGuess.includes("")) return;
+    const guess = currentGuess.join("").toUpperCase();
 
-    const result = checkWord(currentGuess.toUpperCase(), target);
+    if (currentGuess.some(c => c === "")) {
+      console.log("Error: palabra incompleta");
+      return;
+    }
+
+    const result = checkWord(guess, target);
     const newGuesses = [...guesses, result];
     setGuesses(newGuesses);
-    setCurrentGuess("");
+    setCurrentGuess(Array(5).fill(""));
     setActiveIndex(0);
 
-    const isCorrect = result.every((box) => box.status === "correct");
+    const isCorrect = result.every(box => box.status === "correct");
 
     if (isCorrect) {
       await handleGameEnd(true, newGuesses.length);
@@ -140,32 +180,6 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
     }
   }
 
-  // Manejar teclado virtual
-  function handleKeyPress(letter) {
-    if (gameOver) return;
-
-    if (letter === "ENTER") return handleEnter();
-    if (letter === "DEL") {
-      setCurrentGuess(prev => {
-        const chars = prev.split("");
-        chars[activeIndex] = "";
-        return chars.join("");
-      });
-      setActiveIndex(prev => Math.max(prev - 1, 0));
-      return;
-    }
-
-    if (/^[A-ZÑÁÉÍÓÚ]$/.test(letter)) {
-      setCurrentGuess(prev => {
-        const chars = prev.split("");
-        chars[activeIndex] = letter;
-        return chars.join("");
-      });
-      setActiveIndex(prev => Math.min(prev + 1, 4));
-    }
-  }
-
-  // Fin del juego
   async function handleGameEnd(isWin, attemptsUsed) {
     setGameOver(true);
 
@@ -185,11 +199,15 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
     }
   }
 
-  // Renderizado
+  //  Renderizado
   return (
     <div>
-      <div className="grid">
-        {/* 1. Intentos ya realizados */}
+      <div
+        className="grid"
+        tabIndex={0}               // permite capturar teclas
+        onKeyDown={handlePhysicalKeyboard} // escucha teclas físicas
+      >
+        {/* 1. Mostrar los intentos ya realizados */}
         {guesses.map((guess, i) => (
           <div key={i} className="row">
             {guess.map((box, j) => (
@@ -198,13 +216,13 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
           </div>
         ))}
 
-        {/* 2. Fila actual (activa) */}
+        {/* 2. Fila actual */}
         {guesses.length < 6 && !gameOver && (
           <div className="row">
-            {[...Array(5)].map((_, j) => (
+            {currentGuess.map((letter, j) => (
               <LetterBox
                 key={j}
-                letter={currentGuess[j] || ""}
+                letter={letter}
                 status="empty"
                 isActive={activeIndex === j}
                 onClick={() => setActiveIndex(j)}

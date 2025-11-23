@@ -26,7 +26,7 @@ function LetterBox({ letter, status, delay = 0, isActive = false, onClick }) {
             ? "#787c7e"
             : "#fff",
       }}
-      onClick={onClick} // ✅ Permite clics en la celda
+       onClick={onClick}
     >
       {letter}
     </div>
@@ -34,3 +34,4 @@ function LetterBox({ letter, status, delay = 0, isActive = false, onClick }) {
 }
 
 export default LetterBox;
+

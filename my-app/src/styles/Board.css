@@ -26,8 +26,8 @@
   background:#fff;
 }*/
 .letter-box.active {
-  border-color: var(--brand-correct);
-  box-shadow: 0 0 6px var(--brand-correct);
+  border-color: #8C4A1F;
+  box-shadow: 0 0 6px #8C4A1F;
   transform: scale(1.05);
   transition: all 0.15s ease;
 }
@@ -47,6 +47,11 @@
   border-color: var(--brand-absent);
   color: #fff;
 }
+
+.grid:focus {
+  outline: none;
+}
+
 
 
 /* Sutile animación al revelar */
