@@ -9,7 +9,7 @@ import "../Styles/Board.css";
 import "../Styles/Gamegrid.css";
 import { getLocalDateKey } from "../utils/localDate";
 
-function GameGrid({ mode = "classic", target: externalTarget = "", hint = "", levelId = null, onWin }) {
+function GameGrid({ mode = "classic", target: externalTarget = "", levelId = null, onWin }) {
   const [target, setTarget] = useState(externalTarget);
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState(Array(5).fill("")); // ← array fijo
@@ -238,14 +238,6 @@ function GameGrid({ mode = "classic", target: externalTarget = "", hint = "", le
   
     return (
     <div>
-      {/* Mostrar pista si es modo historia */}
-      {mode === "historia" && (
-        <div className="historia-hint text-center mb-4">
-          <h4 className="fw-semibold">Pista:</h4>
-          <p className="fst-italic">{hint}</p>
-        </div>
-      )}
-
       <div
         className="grid"
         tabIndex={0}               // permite capturar teclas físicas
