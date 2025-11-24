@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useHistoria } from "../hooks/useHistoria";
-import GameGrid from "./GameGrid";
+import { useHistoria } from "../utils/hooks/useHistoria.js";
+import GameGrid from "../components/GameGrid";
 
-export default function HistoriaLevelPage() {
+export default function GameHistory() {
   const { id } = useParams();
   const { level, loading } = useHistoria(id);
 

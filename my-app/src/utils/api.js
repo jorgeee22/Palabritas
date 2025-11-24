@@ -112,28 +112,22 @@ export async function getGlobalScores() {
 
 export async function getHistoriaLevels(){
    try {
-    const response = await axios(`${ API_URL_HISTORY}/historia`);
-    if (!response.ok) throw new Error("Error al obtener niveles");
-    const data = await response.json();
-    return data;
+    const response = await axios.get(API_URL_HISTORY);
+   return response.data;
   } catch (error) {
-    console.error("getHistoriaLevels:", error);
-    throw error;
+    console.error("Error al obtener niveles:", error.response?.data || error.message);
+    throw new Error("Error al obtener niveles");
   }
 }
 
 export async function checkHistoriaAnswer(id, userAnswer) {
-  try {
-    const response = await fetch(`${API_URL_HISTORY}/historia/${id}/check`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userAnswer }),
+ try {
+    const response = await axios.post(`${API_URL_HISTORY}/${id}/check`, {
+      userAnswer,
     });
-    if (!response.ok) throw new Error("Error al verificar respuesta");
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
-    console.error("❌ checkHistoriaAnswer:", error);
-    throw error;
+    console.error("❌ Error al verificar respuesta:", error.response?.data || error.message);
+    throw new Error("Error al verificar respuesta");
   }
 }

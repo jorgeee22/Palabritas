@@ -11,6 +11,8 @@ import GameThematic from "./pages/GameThematic";
 import MainMenu from "./pages/MainMenu";
 import TematicoHub from "./components/TematicoHub";
 import Achievements from "./pages/Achievements";
+import GameHistory from "./pages/GameHistory";
+import HistoriaHub from "./pages/HistoryHub";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
         <Route path="/GameThematic/:tema" element={<GameThematic />} />
          <Route path="/MainMenu" element={<MainMenu/>} />
           <Route path="/achievements" element={<Achievements />} />
+          <Route path="/historia" element={<HistoriaHub/>} />
+           <Route path="/historia/:id" element={<GameHistory/>} />
   
       </Routes>
     </Router>
