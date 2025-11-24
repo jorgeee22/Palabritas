@@ -97,3 +97,14 @@ export async function getUserAchievements(token) {
   });
   return res.data;
 }
+
+// Obtener ranking global de la base de datos
+export async function getGlobalScores() {
+  try {
+    const res = await axios.get(`${API_URL_SCORES}/ranking`); // tu endpoint del backend
+    return res.data; // el backend debería devolver una lista de objetos con { username, points }
+  } catch (error) {
+    console.error("Error al obtener el ranking global:", error);
+    throw error;
+  }
+}
