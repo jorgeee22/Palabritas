@@ -2,10 +2,10 @@
 // Conexión al backend con Axios (cuando se integre con Node/Express)
 import axios from "axios";
 
-const API_URL_GAMES = "http://localhost:5000/api/games";
-const API_URL_USERS = "http://localhost:5000/api/users";
-const API_URL_SCORES = "http://localhost:5000/api/scores";
-const API_URL_THEMATIC = "http://localhost:5000/api/tematico";
+const API_URL_GAMES = "https://backend-palabritas.onrender.com/api/games";
+const API_URL_USERS = "https://backend-palabritas.onrender.com/api/users";
+const API_URL_SCORES = "https://backend-palabritas.onrender.com/api/scores";
+const API_URL_THEMATIC = "https://backend-palabritas.onrender.com/api/tematico";
 
 // GAMES
 export async function getWordOfTheDay() {
