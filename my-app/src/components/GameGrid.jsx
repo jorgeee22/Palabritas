@@ -9,7 +9,7 @@ import "../Styles/Board.css";
 import "../Styles/Gamegrid.css";
 import { getLocalDateKey } from "../utils/localDate";
 
-function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
+function GameGrid({ mode = "classic", target: externalTarget = "", hint = "", levelId = null, onWin }) {
   const [target, setTarget] = useState(externalTarget);
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState(Array(5).fill("")); // ← array fijo
@@ -28,7 +28,7 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
   // Restaurar partida o pedir palabra nueva
   useEffect(() => {
     async function restoreGame() {
-      if (externalTarget) {
+      if (mode === "historia" && externalTarget) {
         setTarget(externalTarget);
         return;
       }
@@ -204,6 +204,11 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
   async function handleGameEnd(isWin, attemptsUsed) {
     setGameOver(true);
 
+     if (isWin && mode === "historia" && onWin) {
+      onWin(levelId);
+      return;
+    }
+
     if (isWin && onWin) onWin();
 
     if (!externalTarget) {
@@ -230,18 +235,32 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
 
 
   //  Renderizado
-  return (
+  
+    return (
     <div>
+      {/* Mostrar pista si es modo historia */}
+      {mode === "historia" && (
+        <div className="historia-hint text-center mb-4">
+          <h4 className="fw-semibold">Pista:</h4>
+          <p className="fst-italic">{hint}</p>
+        </div>
+      )}
+
       <div
         className="grid"
-        tabIndex={0}               // permite capturar teclas
-        onKeyDown={handlePhysicalKeyboard} // escucha teclas físicas
+        tabIndex={0}               // permite capturar teclas físicas
+        onKeyDown={handlePhysicalKeyboard}
       >
         {/* 1. Mostrar los intentos ya realizados */}
         {guesses.map((guess, i) => (
           <div key={i} className="row">
             {guess.map((box, j) => (
-              <LetterBox key={j} letter={box.letter} status={box.status} delay={j * 150} />
+              <LetterBox
+                key={j}
+                letter={box.letter}
+                status={box.status}
+                delay={j * 150}
+              />
             ))}
           </div>
         ))}
@@ -271,14 +290,14 @@ function GameGrid({ mode = "classic", target: externalTarget = "", onWin }) {
         ))}
       </div>
 
-      <ToastContainer toasts={toasts} removeToast={(id) =>
-       setToasts((prev) => prev.filter((t) => t.id !== id))
-       } />
+      {/* Contenedor de mensajes */}
+      <ToastContainer
+        toasts={toasts}
+        removeToast={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))}
+      />
 
       {/* Teclado virtual */}
       <Keyboard onKeyPress={handleKeyPress} />
-
-     
     </div>
   );
 }

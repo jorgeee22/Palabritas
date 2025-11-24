@@ -22,6 +22,7 @@ export default function Profile() {
         const data = await getProfile(token); 
         setUser(data);
       } catch (err) {
+        console.log(err)
         setError("No se pudo obtener la información del perfil.");
       }
     };

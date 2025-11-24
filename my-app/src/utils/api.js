@@ -6,6 +6,7 @@ const API_URL_GAMES = "https://backend-palabritas.onrender.com/api/games";
 const API_URL_USERS = "https://backend-palabritas.onrender.com/api/users";
 const API_URL_SCORES = "https://backend-palabritas.onrender.com/api/scores";
 const API_URL_THEMATIC = "https://backend-palabritas.onrender.com/api/tematico";
+const API_URL_HISTORY = "https://backend-palabritas.onrender.com/api/historia";
 
 // GAMES
 export async function getWordOfTheDay() {
@@ -105,6 +106,34 @@ export async function getGlobalScores() {
     return res.data; // el backend debería devolver una lista de objetos con { username, points }
   } catch (error) {
     console.error("Error al obtener el ranking global:", error);
+    throw error;
+  }
+}
+
+export async function getHistoriaLevels(){
+   try {
+    const response = await axios(`${ API_URL_HISTORY}/historia`);
+    if (!response.ok) throw new Error("Error al obtener niveles");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("getHistoriaLevels:", error);
+    throw error;
+  }
+}
+
+export async function checkHistoriaAnswer(id, userAnswer) {
+  try {
+    const response = await fetch(`${API_URL_HISTORY}/historia/${id}/check`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userAnswer }),
+    });
+    if (!response.ok) throw new Error("Error al verificar respuesta");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("❌ checkHistoriaAnswer:", error);
     throw error;
   }
 }

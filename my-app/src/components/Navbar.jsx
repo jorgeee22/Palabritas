@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, User, Zap, Clock } from 'lucide-react';
+import { Home, User, Zap, Clock, Star } from 'lucide-react';
 import '../Styles/Navbar.css';
 import SettingsPopover from './SettingsUI';
 
@@ -39,6 +39,17 @@ function Navbar() {
             <Zap size={20} />
             <span>Modo Temático</span>
           </Link>
+
+        
+          <Link
+            to="/historia"
+            className={`nav-link ${isActive('/historia') ? 'active' : ''}`}
+          >
+            <Star size={20} />
+            <span>Modo Historia</span>
+          </Link>
+
+
        </div>
 
 

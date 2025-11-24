@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 import gameRoutes from "./routes/gameRoutes.js";
 import scoreRoutes from "./routes/scoreRoutes.js";
 import tematicoRoutes from "./routes/tematicoRoutes.js";
+import historyLevelRoutes from "./routes/historyLevelRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -21,6 +22,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/games", gameRoutes);
 app.use("/api/scores", scoreRoutes);
 app.use("/api/tematico", tematicoRoutes);   
+app.use("/api/historia", historyLevelRoutes);
 
 
 const PORT = process.env.PORT || 5000;
