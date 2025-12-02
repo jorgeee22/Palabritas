@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
  */
 
 
-import "./styles/Global.css";
+import "./styles/global.css";
 
 
 import Login from "./pages/Login";

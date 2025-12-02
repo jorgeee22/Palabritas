@@ -657,7 +657,7 @@ body {
   --popover-bg: #222;
   --popover-text: #eee;
   background-color: #111;
-  color: #eee;
+ 
 }
 
 /*<----  Ranking Panel Styles  ----!>*/
@@ -1037,7 +1037,7 @@ button:focus-visible {
 
 body[data-theme="dark"] {
   background-color: #121212;
-  color: #f0f0f0;
+  
 }
 
 body[data-theme="dark"] .letter-box {
