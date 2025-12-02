@@ -1,4 +1,5 @@
 import React from "react";
+//import "../styles/HistoryMode.css"
 
 export default function HistoriaNivel({ level, onClick }) {
   const { id, status } = level;

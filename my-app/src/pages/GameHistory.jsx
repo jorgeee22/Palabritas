@@ -1,13 +1,21 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useHistoria } from "../utils/hooks/useHistoria.js";
-import { checkHistoriaAnswer } from "../utils/api.js"; // asegúrate de importar esta función
+import { checkHistoriaAnswer } from "../utils/api.js"; 
 import GameGrid from "../components/GameGrid";
 import Navbar from "../components/Navbar";
+// import "../styles/HistoryMode.css"
+import  { useEffect } from "react";
 
 export default function GameHistory() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { level, loading } = useHistoria(id);
+
+  // Aplica los colores segun el tema (dark/light)
+      useEffect(() => {
+      document.body.classList.add("historia-mode");
+      return () => document.body.classList.remove("historia-mode");
+    }, []);
 
   // 👇 define handleWin aquí
   const handleWin = async (levelId) => {

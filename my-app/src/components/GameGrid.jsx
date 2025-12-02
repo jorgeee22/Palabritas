@@ -5,8 +5,8 @@ import ToastContainer from "./ToastContainer";
 //import MessageBanner from "../components/MessageBanner";
 import Keyboard from "./Keyboard";
 import { getWordOfTheDay, saveScore, updateClassicStreak } from "../utils/api";
-import "../Styles/Board.css";
-import "../Styles/Gamegrid.css";
+/* import "../Styles/Board.css";
+import "../Styles/Gamegrid.css";*/
 import { getLocalDateKey } from "../utils/localDate";
 
 function GameGrid({ mode = "classic", target: externalTarget = "", levelId = null, onWin }) {

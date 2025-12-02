@@ -1,5 +1,5 @@
 // Teclado virtual que envía las letras al juego
-import "../styles/keyboard.css";
+// import "../styles/keyboard.css";
 
 function Keyboard({ onKeyPress }) {
   const ROWS = [

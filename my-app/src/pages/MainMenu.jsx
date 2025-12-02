@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import "../styles/MainMenu.css";
+// import "../styles/MainMenu.css";
 import RankingPanel from "../components/RankingPanel";
 import { useState } from "react";
 

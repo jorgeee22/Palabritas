@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HistoriaNivel from "../components/HistoriaNivel.jsx";
 import { getHistoriaLevels } from "../utils/api.js";
 import ToastContainer from "../components/ToastContainer.jsx";
+import Navbar from "../components/Navbar.jsx";
+// import "../styles/HistoryMode.css"
 
 export default function HistoriaHub() {
   const [levels, setLevels] = useState([]);
   const [toasts, setToasts] = useState([]);
   const navigate = useNavigate();
+
+// Aplica los colores segun el tema (dark/light)
+    useEffect(() => {
+    document.body.classList.add("historia-mode");
+    return () => document.body.classList.remove("historia-mode");
+  }, []);
 
   // Mostrar toast
   const showToast = (message, duration = 2500) => {
@@ -44,6 +52,8 @@ export default function HistoriaHub() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="historia-hub container text-center mt-5">
       <h2 className="mb-4">Modo Historia</h2>
       <div className="d-flex flex-column align-items-center gap-4">
@@ -63,7 +73,7 @@ export default function HistoriaHub() {
           setToasts((prev) => prev.filter((t) => t.id !== id))
         }
       />
-    </div>
+    </div> </>
   );
 }
 

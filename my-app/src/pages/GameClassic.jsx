@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import GameGrid from "../components/GameGrid";
 
-import '../App.css'
+// import '../App.css'
 
 
 export default function GameClassic() {

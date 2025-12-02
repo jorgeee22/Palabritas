@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../Styles/RankingPanel.css";
+// import "../Styles/RankingPanel.css";
 import { getGlobalScores } from "../utils/api";
 
 export default function RankingPanel({ isOpen, onClose }) {

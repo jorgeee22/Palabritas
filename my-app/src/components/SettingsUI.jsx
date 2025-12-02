@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import "../styles/settings.css";
+// import "../styles/settings.css";
 import {  Settings } from 'lucide-react';
 
 function SettingsPopover({ onThemeChange, onVolumeChange }) {

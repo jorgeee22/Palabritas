@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "../styles/TematicoHub.css";
+// import "../styles/TematicoHub.css";
 import Navbar from "./Navbar";
 
 function TematicoHub(){

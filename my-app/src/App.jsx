@@ -3,6 +3,10 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
  */
 
+
+import "./styles/Global.css";
+
+
 import Login from "./pages/Login";
 import GameClassic from "./pages/GameClassic"; 
 import Register from "./pages/Register";

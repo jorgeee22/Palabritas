@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Home, User, Zap, Clock, Star } from 'lucide-react';
-import '../Styles/Navbar.css';
+// import '../Styles/Navbar.css';
 import SettingsPopover from './SettingsUI';
 
 // Barra de navegación superior
@@ -17,7 +17,11 @@ function Navbar() {
   };
 
   // Función para verificar si la ruta está activa
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    return( 
+      location.pathname === path ||
+      location.pathname.startsWith(path + "/"));
+   };
 
   return (
     <nav className="navbar">

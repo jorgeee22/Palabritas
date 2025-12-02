@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { registerUser } from "../utils/api"; 
 import { useNavigate } from "react-router-dom";
-import "../styles/login.css";
+// import "../styles/login.css";
 import Navbar from "../components/Navbar";
 
 export default function Register() {
