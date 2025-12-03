@@ -1,21 +1,23 @@
+// src/pages/GameClassic.jsx (o donde esté)
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import GameGrid from "../components/GameGrid";
-
-// import '../App.css'
-
+import InstructionsBanner from "../components/InstructionsBanner";
 
 export default function GameClassic() {
+  const [showInstructions, setShowInstructions] = useState(true); // siempre true al entrar
+
   return (
     <>
-      {/* Barra superior con título o menú */}
       <Navbar />
 
-      {/* Contenedor principal del juego */}
       <main className="game-container">
-        <GameGrid mode="classic"/>
-      </main>
+        {showInstructions && (
+          <InstructionsBanner onClose={() => setShowInstructions(false)} />
+        )}
 
-  
+        <GameGrid mode="classic" />
+      </main>
     </>
   );
 }
