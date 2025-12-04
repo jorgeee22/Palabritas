@@ -37,7 +37,7 @@ export default function GameHistory() {
      <Navbar/>
 
 
-    <div className="historia-nivel container text-center mt-5">
+    <div className="historia-hub">
       {/* Pista del nivel */}
       <h2 className="fw-bold mb-4">Nivel {level.id}</h2>
       <p className="fst-italic mb-4">{level.hint}</p>

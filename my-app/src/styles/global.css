@@ -22,7 +22,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -30,154 +29,43 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-/* Navbar fija en la parte superior */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(200, 232, 246, 0.92); /* sky translúcido */
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(140, 74, 31, 0.2); /* brown tenue */
-  padding: 1rem 2rem;
-  z-index: 1000;
+/* ============================
+   MODO OSCURO
+   ACTIVADO CUANDO:
+   body[data-theme="dark"]
+   ============================ */
+body[data-theme="dark"] {
+  background: #121212;
+  color: #e8e8e8;
 }
 
-/* Contenedor interno centrado */
-.navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* === LETTER BOX === */
+body[data-theme="dark"] .letter-box {
+  border: 2px solid #ccc !important;
 }
 
-/* Título/Logo */
-.navbar-title {
-  text-decoration: none;
-  color: var(--brand-brown);
-  transition: opacity 0.3s ease;
+/* === KEYBOARD KEYS === */
+body[data-theme="dark"] .key {
+  background: #2b2b2b !important;
+  border: none !important;
+  color: #e8e8e8;
 }
 
-.navbar-title h1 {
-  margin: 0;
-  font-size: 1.9rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--brand-brown), var(--brand-blue));
+/* === NAVBAR SIN BACKGROUND === */
+body[data-theme="dark"] .nav-main {
+  background: #121212;
+  box-shadow: none !important;
+}
+
+/* === NAVBAR TITLE GRADIENT === */
+body[data-theme="dark"] .nav-title {
+  background: linear-gradient(135deg, #a78bfa, #ec4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.navbar-title:hover {
-  opacity: 0.85;
-}
 
-/* Contenedor de enlaces */
-.navbar-links {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-/* Estilo de cada enlace */
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  color: rgba(140, 74, 31, 0.85); /* brown */
-  text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.nav-link:hover {
-  background: rgba(2, 162, 236, 0.15); /* azul suave */
-  color: var(--brand-blue);
-  transform: translateY(-2px);
-}
-
-/* Enlace activo */
-.nav-link.active {
-  background: linear-gradient(135deg, var(--brand-brown), var(--brand-blue));
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(2, 162, 236, 0.35);
-}
-
-@media (max-width: 1100px) {
-  .navbar {
-    padding: 1rem 1.2rem;
-  }
-
-  .navbar-title h1 {
-    font-size: 1.7rem;
-  }
-
-  .navbar-links {
-    gap: 0.4rem;
-  }
-
-  .nav-link {
-    padding: 0.6rem 1.0rem;
-    font-size: 0.85rem;
-  }
-
-
-}
-
-/* Responsive - Tablets */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0.8rem 1rem;
-  }
-
-  .navbar-title h1 {
-    font-size: 1.5rem;
-  }
-
-  .navbar-links {
-    gap: 0.3rem;
-  }
-
-  .nav-link {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.85rem;
-  }
-
-  .nav-link span {
-    display: none; /* Ocultar texto en tablets */
-  }
-}
-
-
-/* Responsive - Móviles */
-@media (max-width: 480px) {
-  .navbar {
-    padding: 0.6rem 0.8rem;
-  }
-
-  .navbar-title h1 {
-    font-size: 1.2rem;
-  }
-
-  .navbar-links {
-    gap: 0.2rem;
-  }
-
-  .nav-link {
-    padding: 0.4rem 0.6rem;
-  }
-}
-
-/* Ajuste para que el contenido no quede debajo de la navbar */
-body {
-  padding-top: 80px; /* Ajusta según la altura de tu navbar */
-}
 
 
     /*<---- Board Styles  ----!>*/
@@ -337,7 +225,7 @@ body {
 }
 
 .main-menu__greeting {
-  font-size: 1.1rem;
+  font-size: 2rem;
   color: #666;
   margin-bottom: 30px;
   line-height: 1.4;
@@ -355,7 +243,7 @@ body {
 .mode-btn {
   width: 100%;
   height: 80px;
-  background: #a6dcef; /* celeste */
+  background: var(--brand-blue); /* celeste */
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -400,17 +288,7 @@ body {
 
   /*<----  Log In / register Styles  ----!>*/
 
-  /* Estilos generales */
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+
 
 /* Contenedor del login */
 .login-container {
@@ -585,79 +463,68 @@ body {
 
 
 /*<----  settings Styles  ----!>*/
-
-.settings-container {
-  position: relative;
-  display: inline-block;
+/* === CONTENEDOR DEL BOTÓN + POPOVER === */
+/* === OVERLAY OSCURO === */
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.settings-button {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  color: #333;
-  font-weight: 600;
-  padding: 6px 10px;
-}
-
-.settings-button:hover {
-  color: #6aaa64;
-}
-
+/* === POPOVER CENTRADO === */
 .settings-popover {
-  position: absolute;
-  top: 110%;
-  right: 0;
-  width: 220px;
+  width: 300px;
   background: var(--popover-bg, #fff);
   color: var(--popover-text, #111);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  padding: 12px;
-  z-index: 100;
-  animation: fadeIn 0.15s ease-out;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid rgba(0,0,0,0.1);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: popCenter 0.18s ease-out;
+  z-index: 9999;
 }
 
-.settings-popover h4 {
-  margin-top: 0;
-  font-size: 1rem;
-  margin-bottom: 10px;
-  text-align: center;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  padding-bottom: 6px;
+/* Animación */
+@keyframes popCenter {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
+/* Items internos */
 .setting-item {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
-.theme-select, .volume-slider {
-  width: 100%;
-  cursor: pointer;
-  border-radius: 5px;
+.setting-row{
+   display: flex;
+  flex-direction: column;
+  gap: 10px; /* separación entre botones */
 }
 
-.volume-slider {
-  accent-color: #6aaa64;
+.setting-btn-claro{
+  background-color: blue;
 }
 
-/* Animación */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Temas */
-[data-theme="dark"] {
-  --popover-bg: #222;
-  --popover-text: #eee;
-  background-color: #111;
- 
+.setting-btn-oscuro{
+  background-color: black;
 }
 
 /*<----  Ranking Panel Styles  ----!>*/
@@ -762,7 +629,7 @@ body {
 }
 
 .tema-btn {
-  background: #a6dcef;
+  background: var(--brand-blue);
   border: none;
   border-radius: 8px;
   padding: 16px;
@@ -793,103 +660,81 @@ body {
 
 /*<----  History Mode Styles  ----!>*/
 
-/* --- Tema claro --- */
-[data-theme="light"] body.historia-mode {
-  background: #f8f5f0;
-  color: #3b2b21;
+/* Fondo general */
+/* MODO HISTORIA SIEMPRE ES CLARO */
+body.historia-mode {
+  background: #f8f5f0 url("https://www.transparenttextures.com/patterns/old-wall.png") repeat !important;
+  background-size: 600px 600px;
+  color: #3b2b21 !important;
 }
 
-[data-theme="light"] .historia-hub,
-[data-theme="light"] .historia-nivel {
-  background: #fffaf3;
-  border: 1px solid var(--historia-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 14px;
+/* Override total: NO PERMITIR MODO OSCURO EN HISTORIA */
+body.historia-mode[data-theme="dark"],
+body.historia-mode[data-theme="light"] {
+  background: #f8f5f0 url("https://www.transparenttextures.com/patterns/old-wall.png") repeat !important;
+  color: #3b2b21 !important;
 }
 
-[data-theme="light"] .historia-hint {
-  background: var(--historia-accent);
-  color: #3b2b21;
-  border-left: 4px solid var(--historia-primary);
-  border-radius: 8px;
-  padding: 1rem 1.2rem;
-  font-style: italic;
+/* Historia keys */
+body.historia-mode .key {
+  background: var(--historia-primary) !important;
+  color: #fff !important;
+  border: none !important;
 }
 
-/* --- Tema oscuro --- */
-[data-theme="dark"] body.historia-mode {
-  background: #1e1b18;
-  color: #f2e8dc;
+/* Historia letterbox */
+body.historia-mode .letter-box {
+  border-color: rgba(140, 74, 31, 0.3) !important;
 }
 
-[data-theme="dark"] .historia-hub,
-[data-theme="dark"] .historia-nivel {
-  background: #2b2520;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
+/* NAVBAR HISTORIA SIEMPRE CLARO */
+body.historia-mode .nav-main {
+  background:  #f8f5f0 url("https://www.transparenttextures.com/patterns/old-wall.png") repeat !important;
 }
 
-[data-theme="dark"] .historia-hint {
-  background: #3a2f25;
-  color: #f2e8dc;
-  border-left: 4px solid var(--historia-accent);
-  border-radius: 8px;
-  padding: 1rem 1.2rem;
-  font-style: italic;
+body.historia-mode .nav-title {
+   background: linear-gradient(135deg, var(--brand-brown), var(--brand-blue)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
 }
 
-/* --- Botones de niveles --- */
-.historia-nivel button {
-  background: var(--historia-primary);
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  padding: 0.6rem 1.4rem;
-  font-weight: 600;
-  transition: background 0.25s ease, transform 0.25s ease;
+body.historia-mode .historia-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centra horizontalmente */
+  justify-content: flex-start;
+  padding: 2rem;
+  
 }
 
-.historia-nivel button:hover {
-  background: var(--historia-accent);
-  transform: translateY(-3px);
+body.historia-mode .niveles-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+   align-items: center;   /* centra horizontalmente */
+  justify-content: flex-start;
 }
 
-/* --- Integración con el grid y teclado --- */
-.historia-mode .letter-box {
-  border-color: var(--historia-border);
-}
-
-.historia-mode .key {
-  background: var(--historia-primary);
-  color: #fff;
-}
-
-.historia-mode .key:hover {
-  background: #a65e2c;
-}
-
-/* --- Animación general --- */
-@keyframes historiaFade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.historia-hint,
-.historia-nivel {
-  animation: historiaFade 0.6s ease;
+body.historia-mode .historia-nivel {
+  transform: translateX(calc(var(--step) * 25px));
+  transition: transform 0.25s ease;
 }
 
 /*<----  Toasts Styles  ----!>*/
 
-.toast-container {
-  position: absolute;
-  top: 10%;
+.toast-container-grid,
+.toast-container-hub {
+  position: fixed;
+  top: 70px; /* debajo del navbar */
   left: 50%;
   transform: translateX(-50%);
+  z-index: 5000;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  z-index: 2000;
   pointer-events: none;
 }
 
@@ -914,10 +759,6 @@ body {
 /*<---- App Styles  ----!>*/
 
 
-/* Ajuste para que el contenido no quede debajo de la navbar */
-body {
-  padding-top: 80px; /* altura de la navbar */
-}
 
 /* Contenedor general del juego */
 .game-container {
@@ -979,12 +820,14 @@ body {
 
 /*<----  Index Styles  ----!>*/
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
+  padding-top: 30px;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   min-height: 100vh;
- /* overflow-y: hidden; /* evita scroll vertical */
 }
 
 
@@ -1017,48 +860,10 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-
-/*  Dark Theme     */
 
 
 
-body[data-theme="dark"] {
-  background-color: #121212;
-  
-}
 
-body[data-theme="dark"] .letter-box {
-  border: 2px solid ;
-  /* opcional, si no quieres fondo */
-  color: #f0f0f0;
-}
 
-body[data-theme="dark"] .key {
-  border: none;
-  background-color: #2b2b2b;
-  color: #fff;
-}
 
-body[data-theme="dark"] .navbar {
-  background: none;
-}
 
-body[data-theme="dark"] .navbar h1 {
-  background: linear-gradient(135deg, #a78bfa, #ec4899);
-  background-clip: text; 
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}

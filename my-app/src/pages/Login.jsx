@@ -53,15 +53,14 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       console.error("Error al iniciar sesión:", err);
-      setError("Credenciales inválidas o error del servidor.");
+      setError("Credenciales inválidas");
     } finally {
       setLoading(false);
     }
   };
 
   // Botones sociales (UI-only)
-  const handleGoogle = () => alert("Google Sign-In (solo interfaz)");
-  const handleApple = () => alert("Apple Sign-In (solo interfaz)");
+  
 
   return (
     <>
@@ -114,24 +113,7 @@ export default function Login() {
           </button>
         </form>
 
-        <div className="divider"><span>o</span></div>
-
-        <div className="social-container">
-          <button type="button" className="social-btn google" onClick={handleGoogle}>
-            <span className="social-ico">G</span> Continuar con Google
-          </button>
-          <button type="button" className="social-btn apple" onClick={handleApple}>
-            <span className="social-ico"></span> Continuar con Apple
-          </button>
-        </div>
-
-        <p className="terms">
-          Al continuar, aceptas los{" "}
-          <a href="#" onClick={(e)=>e.preventDefault()}>Términos de Servicio</a>,{" "}
-          <a href="#" onClick={(e)=>e.preventDefault()}>Términos de Venta</a> y la{" "}
-          <a href="#" onClick={(e)=>e.preventDefault()}>Política de Privacidad</a>.
-        </p>
-
+       
         <p className="register-link">
           ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
         </p>

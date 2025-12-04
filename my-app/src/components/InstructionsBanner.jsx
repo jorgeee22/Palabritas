@@ -2,7 +2,8 @@
 import "../styles/Banner.css";
 
 
-export default function InstructionsBanner({ onClose }) {
+export default function InstructionsBanner({ isOpen, onClose }) {
+    if (!isOpen) return null; 
     return (
       <div className="instructions-overlay">
         <div className="instructions-modal">

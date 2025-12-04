@@ -54,20 +54,22 @@ export default function HistoriaHub() {
   return (
     <>
     <Navbar/>
-    <div className="historia-hub container text-center mt-5">
+    <div className="historia-hub container">
       <h2 className="mb-4">Modo Historia</h2>
-      <div className="d-flex flex-column align-items-center gap-4">
-        {levels.map((level) => (
+      <div className="niveles-lista">
+        {levels.map((level, i) => (
+           <div key={level.id} className="historia-nivel" style={{ "--step": i }}>
           <HistoriaNivel
             key={level.id}
             level={level}
             onClick={() => handleLevelClick(level)}
-          />
+          /> </div>
         ))}
       </div>
 
       {/* Toasts */}
       <ToastContainer
+      className="toast-container-grid"
         toasts={toasts}
         removeToast={(id) =>
           setToasts((prev) => prev.filter((t) => t.id !== id))

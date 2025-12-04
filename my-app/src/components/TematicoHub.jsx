@@ -11,9 +11,9 @@ function TematicoHub(){
     { id: "peliculas", label: "🎬 Peliculas" },
     { id: "animales", label: "🐾 Animales" },
     { id: "comida", label: "🍎 Comida" },
-    { id: "nombres", label: "Nombres" },
-    { id: "paises", label: "Paises" },
-    { id: "historia", label: "Historia" },
+    { id: "nombres", label: " Nombres" },
+    { id: "paises", label: "Países" },
+    
   ];
 
   return(

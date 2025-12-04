@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 //  import "../Styles/Toast.css";
 
-export default function ToastContainer({ toasts, removeToast }) {
+export default function ToastContainer({  toasts, removeToast, className = "" }) {
 
+  console.log("TOASTCONTAINER RECEIVED:", toasts);
 
     
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function ToastContainer({ toasts, removeToast }) {
   }, [toasts, removeToast]);
 
   return (
-    <div className="toast-container">
+    <div className={`toast-container ${className}`}>
       {toasts.map((toast) => (
         <div key={toast.id} className="toast">
           {toast.message}

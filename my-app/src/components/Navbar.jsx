@@ -1,94 +1,58 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Home, User, Zap, Clock, Star } from 'lucide-react';
-// import '../Styles/Navbar.css';
-import SettingsPopover from './SettingsUI';
+import { Link, useLocation } from "react-router-dom";
+import { Home, User, Zap, Clock, Star } from "lucide-react";
+import "../styles/Navbar.css"
 
-// Barra de navegación superior
-function Navbar() {
+export default function Navbar() {
   const location = useLocation();
-   const handleThemeChange = (theme) => {
-    console.log("Tema:", theme);
-    // Aquí puedes aplicar lógica extra si quieres
-  };
 
-    const handleVolumeChange = (vol) => {
-    console.log("Volumen:", vol);
-    // Aquí puedes ajustar tus efectos de sonido
-  };
-
-  // Función para verificar si la ruta está activa
   const isActive = (path) => {
-    return( 
+    return (
       location.pathname === path ||
-      location.pathname.startsWith(path + "/"));
-   };
+      location.pathname.startsWith(path + "/")
+    );
+  };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
+    <nav className="nav-main">
+      <div className="nav-container">
 
-      <div className="navbar-links">
-        <Link
-            to="/"
-            className={`nav-link ${isActive('/') ? 'active' : ''}`}
-          >
-            <Clock size={20} />
-            <span>Modo Clásico</span>
+        {/* LEFT */}
+        <div className="nav-left">
+          <Link to="/" className={`nav-link ${isActive("/") ? "active" : ""}`}>
+            <Clock size={18} />
+            <span className="nav-text">Palabra del día</span>
           </Link>
 
-          <Link
-            to="/GameThematic"
-            className={`nav-link ${isActive('/GameThematic') ? 'active' : ''}`}
-          >
-            <Zap size={20} />
-            <span>Modo Temático</span>
+          <Link to="/GameThematic" className={`nav-link ${isActive("/GameThematic") ? "active" : ""}`}>
+            <Zap size={18} />
+            <span className="nav-text">Modo Temático</span>
           </Link>
 
-        
-          <Link
-            to="/historia"
-            className={`nav-link ${isActive('/historia') ? 'active' : ''}`}
-          >
-            <Star size={20} />
-            <span>Modo Historia</span>
+          <Link to="/historia" className={`nav-link ${isActive("/historia") ? "active" : ""}`}>
+            <Star size={18} />
+            <span className="nav-text">Modo Historia</span>
           </Link>
+        </div>
 
-
-       </div>
-
-
-        {/* Logo/Título */}
-        <Link to="/" className="navbar-title">
-          <h1>P A L A B R I T A S</h1>
+        {/* CENTER TITLE */}
+        <Link className="nav-title" to="/">
+          P A L A B R I T A S
         </Link>
 
-        {/* Enlaces de navegación con iconos */}
-        <div className="navbar-links">
-          <Link
-            to="/MainMenu"
-            className={`nav-link ${isActive('/MainMenu') ? 'active' : ''}`}
-          >
-            <Home size={20} />
-            <span>Menu</span>
+        {/* RIGHT */}
+        <div className="nav-right">
+          <Link to="/MainMenu" className={`nav-link ${isActive("/MainMenu") ? "active" : ""}`}>
+            <Home size={18} />
+            <span className="nav-text">Menu</span>
           </Link>
 
-          <Link
-            to="/profile"
-            className={`nav-link ${isActive('/profile') ? 'active' : ''}`}
-          >
-            <User size={20} />
-            <span>Perfil</span>
+          <Link to="/profile" className={`nav-link ${isActive("/profile") ? "active" : ""}`}>
+            <User size={18} />
+            <span className="nav-text">Perfil</span>
           </Link>
-
-  
-           <SettingsPopover 
-        onThemeChange={handleThemeChange}
-        onVolumeChange={handleVolumeChange}
-      />
         </div>
+
       </div>
     </nav>
   );
 }
-
-export default Navbar;

@@ -284,6 +284,7 @@ function GameGrid({ mode = "classic", target: externalTarget = "", levelId = nul
 
       {/* Contenedor de mensajes */}
       <ToastContainer
+      className="toast-container-grid"
         toasts={toasts}
         removeToast={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))}
       />
